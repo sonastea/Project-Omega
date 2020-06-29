@@ -17,7 +17,7 @@ private:
 
 	std::stack<State *> states; // Pointer
 
-	std::map<const char*, int> supportedKeys;
+	std::map<std::string, int> supportedKeys;
 
 	// Initialization
 	void initWindow();

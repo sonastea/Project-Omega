@@ -9,8 +9,8 @@ private:
 
 protected:
 	sf::RenderWindow* window;
-	std::map<const char*, int>* supportedKeys;
-	std::map<const char*, int> keybinds;
+	std::map<std::string, int>* supportedKeys;
+	std::map<std::string, int> keybinds;
 	bool quit;
 
 
@@ -22,7 +22,7 @@ protected:
 
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* window, std::map<const char*, int>* supportedKeys);
+	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~State();
 
 	const bool& getQuit() const;

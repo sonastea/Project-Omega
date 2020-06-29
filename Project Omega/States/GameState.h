@@ -15,7 +15,7 @@ private:
     void initKeybinds();
 public:
     // Constructors/Destructors
-    GameState(sf::RenderWindow* window, std::map<const char*, int>* supportedKeys);
+    GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
     virtual ~GameState();
 
     // Functions

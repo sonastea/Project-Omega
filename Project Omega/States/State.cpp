@@ -1,7 +1,7 @@
 #include "State.h"
 
 
-State::State(sf::RenderWindow* window, std::map<const char*, int>* supportedKeys)
+State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
 {
 	this->window = window;
 	this->supportedKeys = supportedKeys;
@@ -19,7 +19,7 @@ const bool& State::getQuit() const
 
 void State::checkForQuit()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
 	{
 		this->quit = true;
 	}
