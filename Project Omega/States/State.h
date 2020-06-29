@@ -1,41 +1,38 @@
 #ifndef STATE_H
 #define STATE_H
 
-
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <stack>
-#include <map>
-
-
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/Network.hpp"
-
+#include "Entity.h"
 
 class State
 {
 private:
+
+protected:
 	sf::RenderWindow* window;
+	std::map<const char*, int>* supportedKeys;
+	std::map<const char*, int> keybinds;
+	bool quit;
+
+
+	// Resources
 	std::vector<sf::Texture> textures;
+	// Functions
+	virtual void initKeybinds() = 0; // Each state will have to define their own keybinds
+
 
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* window);
-	State();
+	State(sf::RenderWindow* window, std::map<const char*, int>* supportedKeys);
 	virtual ~State();
 
+	const bool& getQuit() const;
+
+	virtual void checkForQuit();
+
 	virtual void endState() = 0;
-
+	virtual void updateInput(const float& dt) = 0; // Pure virtual, child must define
 	virtual void update(const float& dt) = 0; // Pure virtual, must be implemented
-	virtual void render(sf::RenderTarget* target = nullptr) = 0; // Pure virtual, must be implemented
-
+	virtual void render(sf::RenderTarget* target = NULL) = 0; // Pure virtual, must be implemented
 };
 
 #endif STATE_H
