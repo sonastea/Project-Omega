@@ -1,20 +1,25 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "State.h"
+
+#include "GameState.h"
+
 
 class Game
 {
 private:
 	// Variables
-	sf::RenderWindow *window;
+	sf::RenderWindow* window; // Pointer 
 	sf::Event sfEvent;
 
 	sf::Clock dtClock;
 	float dt; // Delta Time
 
+	std::stack<State *> states; // Pointer
+
 	// Initialization
 	void initWindow();
+	void initStates();
 
 public:
 	// Constructors/Destructors
