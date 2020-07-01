@@ -10,15 +10,19 @@ private:
 	// Variables
 	sf::RenderWindow* window; // Pointer 
 	sf::Event sfEvent;
+	std::vector<sf::VideoMode> videoModes;
+	sf::ContextSettings windowSettings;
+	bool fullscreen;
 
 	sf::Clock dtClock;
 	float dt; // Delta Time
 
 	std::stack<State *> states; // Pointer
 
-	std::map<std::string, int> supportedKeys;
+	std::map<std::string, int> supportedKeys; // Keybinds for the game
 
 	// Initialization
+	void initVariables();
 	void initWindow();
 	void initKeys();
 	void initStates();
