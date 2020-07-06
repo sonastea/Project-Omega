@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "Entity.h"
+#include "Player.h"
 
 class State
 {
@@ -21,7 +21,8 @@ protected:
 
 
 	// Resources
-	std::vector<sf::Texture> textures;
+	std::map<std::string, sf::Texture> textures;
+
 	// Functions
 	virtual void initKeybinds() = 0; // Each state will have to define their own keybinds
 
