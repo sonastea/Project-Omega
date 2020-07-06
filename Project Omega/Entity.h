@@ -22,14 +22,19 @@
 class Entity
 {
 private:
-
+	void initVariables();
 protected:
-	sf::RectangleShape shape; // placeholder
+	sf::Texture* texture; //Point to a texture in the state where you loaded the texture, without having to load it every creation
+	sf::Sprite* sprite;
+
 	float movementSpeed;
 
 public:
 	Entity();
 	virtual ~Entity();
+
+	// Components functions
+	void createSprite(sf::Texture* texture);
 
 	// Functions
 	virtual void move(const float& dt, const sf::Vector2f& direction);

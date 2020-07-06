@@ -32,10 +32,8 @@ public:
 	virtual ~State();
 
 	const bool& getQuit() const;
+	void endState();
 
-	virtual void checkForQuit();
-
-	virtual void endState() = 0;
 	virtual void updateMousePositions();
 	virtual void updateInput(const float& dt) = 0; // Pure virtual, child must define
 	virtual void update(const float& dt) = 0; // Pure virtual, must be implemented
