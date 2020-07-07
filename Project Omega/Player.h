@@ -13,7 +13,7 @@ private:
     void initComponents();
 
 public:
-    Player(sf::Vector2f direction, sf::Texture& texture);
+    Player(sf::Vector2f pos, sf::Texture& texture);
     virtual ~Player();
 
 };

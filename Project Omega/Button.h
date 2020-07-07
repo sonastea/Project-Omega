@@ -32,6 +32,12 @@ private:
 	sf::Font* font;
 	sf::Text text;
 
+	// Button text colors
+
+	sf::Color textIdleColor;
+	sf::Color textHoverColor;
+	sf::Color textActiveColor;
+
 	// Button colors
 
 	sf::Color idleColor;
@@ -45,8 +51,9 @@ protected:
 public:
 	// Constructor/Destructor
 	Button(float x, float y, float width, float height, 
-		sf::Font* font, std::string text, 
-		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
+		sf::Font* font, std::string text, unsigned character_size,
+		sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
+		sf::Color idle_color, sf::Color hover_color, sf::Color active_color);
 	~Button();
 
 	// Accessors / Getters

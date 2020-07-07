@@ -1,6 +1,6 @@
 #include "Player.h"
 
-// Initializer functions
+/* Initializer functions */
 
 void Player::initVariables()
 {
@@ -8,18 +8,18 @@ void Player::initVariables()
 
 void Player::initComponents()
 {
-	this->createMovementComponent(100.f);
+	this->createMovementComponent(300.f, 15.f, 5.f);
 }
 
-// Constructors / Destructors
+/* Constructors / Destructors */
 
-Player::Player(sf::Vector2f direction, sf::Texture& texture)
+Player::Player(sf::Vector2f pos, sf::Texture& texture)
 {
 	this->initVariables();
 	this->initComponents();
 
 	this->setTexture(texture);
-	this->setPosition(direction);
+	this->setPosition(pos);
 }
 
 Player::~Player()

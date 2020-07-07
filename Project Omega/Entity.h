@@ -19,11 +19,11 @@ public:
 
 	// Components functions
 	void setTexture(sf::Texture& texture);
-	void createMovementComponent(const float maxVelocity);
+	void createMovementComponent(const float maxVelocityy, const float acceleration, const float deceleration);
 
 	// Functions
 	virtual void setPosition(const sf::Vector2f pos);
-	virtual void move(const float& dt, const sf::Vector2f& direction);
+	virtual void move(const sf::Vector2f& direction, const float& dt);
 
 	virtual void update(const float& dt);
 	virtual void render(sf::RenderTarget* target);
