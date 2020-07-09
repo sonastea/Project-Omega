@@ -66,17 +66,17 @@ void Button::update(sf::Vector2f mousePos)
 
 	switch (this->buttonState)
 	{
-	case ButtonState::IDLE:
+	case IDLE:
 		this->shape.setFillColor(this->idleColor);
 		this->text.setFillColor(this->textIdleColor);
 		break;
 
-	case ButtonState::HOVER:
+	case HOVER:
 		this->shape.setFillColor(this->hoverColor);
 		this->text.setFillColor(this->textHoverColor);
 		break;
 
-	case ButtonState::ACTIVE:
+	case ACTIVE:
 		this->shape.setFillColor(this->activeColor);
 		this->text.setFillColor(this->textActiveColor);
 		break;

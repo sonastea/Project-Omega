@@ -23,15 +23,15 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_IDLE"].loadFromFile("Assets/Player/player-v1-s.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Assets/Player/player-sheet.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
 	}
 }
 
 void GameState::initPlayers()
 {
-	this->player = new Player(sf::Vector2f(0, 0), this->textures["PLAYER_IDLE"]);
+	this->player = new Player(sf::Vector2f(0, 0), this->textures["PLAYER_SHEET"]);
 }
 
 // Constructors / Destructors
@@ -61,6 +61,7 @@ void GameState::updateInput(const float& dt)
 		this->player->move(sf::Vector2f(0.f, -1.f), dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 		this->player->move(sf::Vector2f(0.f, 1.f), dt);
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
 		this->endState();

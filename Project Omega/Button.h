@@ -13,7 +13,7 @@
 
 
 // Button states
-enum ButtonState{IDLE = 0, HOVER, ACTIVE};
+enum ButtonState {IDLE = 0, HOVER, ACTIVE};
 
 
 class Button 

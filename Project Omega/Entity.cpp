@@ -3,6 +3,7 @@
 void Entity::initVariables()
 {
 	this->movementComponent = NULL;
+	this->animationComponent = NULL;
 }
 
 Entity::Entity()
@@ -13,7 +14,9 @@ Entity::Entity()
 Entity::~Entity()
 {
 	delete this->movementComponent;
+	delete this->animationComponent;
 }
+
 
 // Components functions
 void Entity::setTexture(sf::Texture& texture)
@@ -26,10 +29,17 @@ void Entity::createMovementComponent(const float maxVelocity, const float accele
 	this->movementComponent = new MovementComponent(this->sprite, maxVelocity, acceleration, deceleration);
 }
 
+
+void Entity::createAnimationComponent(sf::Texture& texture_sheet)
+{
+	this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
+}
+
+
 /* Functions */
 void Entity::setPosition(const sf::Vector2f pos)
 {
-		this->sprite.setPosition(sf::Vector2f(pos.x, pos.y));
+	this->sprite.setPosition(sf::Vector2f(pos.x, pos.y));
 }
 
 void Entity::move(const sf::Vector2f& direction, const float& dt)

@@ -4,19 +4,58 @@ MovementComponent::MovementComponent(sf::Sprite& sprite,
 	float maxVelocity, float acceleration, float deceleration)
 	: sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration)
 {
-	this->maxVelocity = maxVelocity;
+
 }
 
 MovementComponent::~MovementComponent()
 {
 }
 
+/* Functions */
+
 const sf::Vector2f& MovementComponent::getVelocity() const
 {
 	return this->velocity;
 }
 
-/* Functions */
+const bool MovementComponent::getState(const short unsigned state) const
+{
+	switch (state)
+	{
+	case IS_IDLE:
+		if (this->velocity.x == 0.f && this->velocity.y == 0.f)
+			return true;
+		break;
+
+	case MOVING:
+		if (this->velocity.x != 0.f || this->velocity.y != 0.f)
+			return true;
+		break;
+
+	case MOVING_LEFT:
+		if (this->velocity.x < 0.f)
+			return true;
+		break;
+
+	case MOVING_RIGHT:
+		if (this->velocity.x > 0.f)
+			return true;
+		break;
+
+	case MOVING_UP:
+		if (this->velocity.y < 0.f)
+			return true;
+		break;
+
+	case MOVING_DOWN:
+		if (this->velocity.y > 0.f)
+			return true;
+		break;
+	}
+	return false;
+}
+
+
 void MovementComponent::move(const sf::Vector2f direction, const float& dt)
 {
 	/* Accelerating a sprite until it reaches the max velcoity */
@@ -35,9 +74,9 @@ void MovementComponent::update(const float& dt)
 	{
 		// Max velocity check
 		if (this->velocity.x > this->maxVelocity)
-			this->velocity.x = maxVelocity;
+			this->velocity.x = this->maxVelocity;
 
-		// Deceleration
+		// Deceleration x pos
 		this->velocity.x -= deceleration;
 		if (this->velocity.x < 0.f)
 			this->velocity.x = 0.f;
@@ -46,9 +85,9 @@ void MovementComponent::update(const float& dt)
 	{
 		// Max velocity check
 		if (this->velocity.x < -this->maxVelocity)
-			this->velocity.x = -maxVelocity;
+			this->velocity.x = -this->maxVelocity;
 
-		// Deceleration
+		// Deceleration x neg
 		this->velocity.x += deceleration;
 		if (this->velocity.x > 0.f)
 			this->velocity.x = 0.f;
@@ -59,7 +98,7 @@ void MovementComponent::update(const float& dt)
 	{
 		// Max velocity check
 		if (this->velocity.y > this->maxVelocity)
-			this->velocity.y = maxVelocity;
+			this->velocity.y = this->maxVelocity;
 
 		// Deceleration
 		this->velocity.y -= deceleration;
@@ -70,7 +109,7 @@ void MovementComponent::update(const float& dt)
 	{
 		// Max velocity check
 		if (this->velocity.y < -this->maxVelocity)
-			this->velocity.y = -maxVelocity;
+			this->velocity.y = -this->maxVelocity;
 
 		// Deceleration
 		this->velocity.y += deceleration;

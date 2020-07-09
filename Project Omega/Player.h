@@ -13,9 +13,11 @@ private:
     void initComponents();
 
 public:
-    Player(sf::Vector2f pos, sf::Texture& texture);
+    Player(sf::Vector2f pos, sf::Texture& texture_sheet);
     virtual ~Player();
 
+    // Functions
+    virtual void update(const float& dt);
 };
 
 #endif
