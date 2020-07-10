@@ -23,7 +23,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_SHEET"].loadFromFile("Assets/Player/player-sheet.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Assets/Player/player-sheet-video.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
 	}
@@ -80,5 +80,5 @@ void GameState::render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 
-	this->player->render(this->window);
+	this->player->render(*target);
 }
