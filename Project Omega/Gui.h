@@ -96,6 +96,8 @@ namespace gui
 			unsigned nrOfElements, const unsigned default_index = 0);
 		~DropDownList();
 
+		// Accessors / Getters
+		const unsigned short& getActiveElement() const;
 		// Functions
 		const bool getKeytime();
 		void updateKeytime(const float& dt);

@@ -178,6 +178,11 @@ gui::DropDownList::~DropDownList()
 
 /* Accessors / Getters */
 
+const unsigned short& gui::DropDownList::getActiveElement() const
+{
+	return this->activeElement->getId();
+}
+
 const bool gui::DropDownList::getKeytime()
 {
 	if (this->keytime >= this->keytimeMax)
