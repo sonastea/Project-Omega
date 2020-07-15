@@ -2,7 +2,7 @@
 #define GAME_H
 
 
-#include "MainMenuState.h"
+#include "SettingsState.h"
 
 class Game
 {
