@@ -179,7 +179,7 @@ gui::DropDownList::~DropDownList()
 
 /* Accessors / Getters */
 
-const unsigned short& gui::DropDownList::getActiveElement() const
+const unsigned short& gui::DropDownList::getActiveElementId() const
 {
 	return this->activeElement->getId();
 }

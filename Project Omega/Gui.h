@@ -67,31 +67,31 @@ namespace gui
 		void render(sf::RenderTarget& target);
 	};
 
-	class DropDownList
-	{
-	private:
-		float keytime;
-		float keytimeMax;
+		class DropDownList
+		{
+		private:
+			float keytime;
+			float keytimeMax;
 
-		sf::Font& font;
-		gui::Button* activeElement;
-		std::vector<gui::Button*> list;
-		bool showList;
+			sf::Font& font;
+			gui::Button* activeElement;
+			std::vector<gui::Button*> list;
+			bool showList;
 
-	public:
-		DropDownList(float x, float y, float width, float height, 
-			sf::Font& font, std::string list[], 
-			unsigned nrOfElements, const unsigned default_index = 0);
-		~DropDownList();
+		public:
+			DropDownList(float x, float y, float width, float height, 
+				sf::Font& font, std::string list[], 
+				unsigned nrOfElements, const unsigned default_index = 0);
+			~DropDownList();
 
-		// Accessors / Getters
-		const unsigned short& getActiveElement() const;
-		// Functions
-		const bool getKeytime();
-		void updateKeytime(const float& dt);
-		void update(const sf::Vector2f& mousePos, const float& dt);
-		void render(sf::RenderTarget& target);
-	};
+			// Accessors / Getters
+			const unsigned short& getActiveElementId() const;
+			// Functions
+			const bool getKeytime();
+			void updateKeytime(const float& dt);
+			void update(const sf::Vector2f& mousePos, const float& dt);
+			void render(sf::RenderTarget& target);
+		};
 }
 
 #endif
