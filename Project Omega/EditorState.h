@@ -6,6 +6,11 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
+class State;
+class Gui;
+class PauseMenu;
+class TileMap;
+
 class EditorState :
     public State
 {
@@ -29,7 +34,7 @@ private:
 
 public:
     // Constructors/Destructors
-    EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    EditorState(StateData* state_data);
     virtual ~EditorState();
 
     // Functions

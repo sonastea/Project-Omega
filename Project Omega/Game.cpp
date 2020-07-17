@@ -8,6 +8,8 @@ void Game::initVariables()
     this->window = NULL;
 
     this->dt = 0.f;
+
+    *this->gridSize = 50.f;
 }
 
 void Game::initGraphicsSettings()
@@ -70,9 +72,18 @@ void Game::initKeys()
     }
 }
 
+void Game::initStateData()
+{
+    this->stateData.window = this->window;
+    this->stateData.gfxSettings = &this->gfxSettings;
+    this->stateData.supportedKeys = &this->supportedKeys;
+    this->stateData.states = &this->states;
+    this->stateData.gridSize = *this->gridSize;
+}
+
 void Game::initStates()
 {
-    this->states.push(new MainMenuState(this->window, this->gfxSettings, &this->supportedKeys, &this->states));
+    this->states.push(new MainMenuState(&this->stateData));
 }
 
 
@@ -83,7 +94,8 @@ Game::Game()
     this->initVariables();
     this->initGraphicsSettings();
     this->initWindow(); // Calls window when Game object created
-    this->initKeys(); // Key binds
+    this->initKeys(); // Key binds    
+    this->initStateData();
     this->initStates(); // Init game states
 }
 
@@ -96,6 +108,8 @@ Game::~Game()
         delete this->states.top(); // Removes data in pointer
         this->states.pop(); // Removes actual pointers
     }
+
+    delete this->gridSize;
 }
 
 // Functions
@@ -142,8 +156,6 @@ void Game::update()
         this->endApplication();
         this->window->close();
     }
-
-    
 }
 
 void Game::render()

@@ -2,7 +2,7 @@
 #define GUI_H
 
 // Button states
-enum ButtonState {IDLE = 0, HOVER, ACTIVE};
+enum ButtonState {IDLE = 0, HOVER = 1, ACTIVE = 2};
 
 namespace gui
 {

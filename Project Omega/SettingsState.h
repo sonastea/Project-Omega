@@ -4,12 +4,14 @@
 #include "State.h"
 #include "Gui.h"
 
+class State;
+class Gui;
+
 class SettingsState :
     public State
 {
 private:
     // Variables
-    GraphicsSettings& gfxSettings;
     sf::Texture bgTexture;
     sf::RectangleShape background;
     sf::Font font;
@@ -31,7 +33,7 @@ private:
 
 
 public:
-    SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    SettingsState(StateData* state_data);
     virtual ~SettingsState();
 
     // Accessors

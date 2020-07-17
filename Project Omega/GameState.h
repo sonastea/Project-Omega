@@ -6,6 +6,9 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
+class State;
+class PauseMenu;
+class TileMap;
 
 class GameState :
     public State
@@ -28,7 +31,7 @@ private:
 
 public:
     // Constructors/Destructors
-    GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State *>* states);
+    GameState(StateData* state_data);
     virtual ~GameState();
 
     // Functions

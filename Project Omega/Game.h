@@ -4,11 +4,14 @@
 
 #include "MainMenuState.h"
 
+class MainMenuState;
+
 class Game
 {
 private:
 	// Variables
 	GraphicsSettings gfxSettings;
+	StateData stateData;
 	sf::RenderWindow* window; // Pointer 
 	sf::Event sfEvent;
 
@@ -19,11 +22,14 @@ private:
 
 	std::map<std::string, int> supportedKeys; // Keybinds for the game
 
+	float* gridSize = new float;
+
 	// Initialization
 	void initVariables();
 	void initGraphicsSettings();
 	void initWindow();
 	void initKeys();
+	void initStateData();
 	void initStates();
 
 public:
