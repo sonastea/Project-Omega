@@ -1,18 +1,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-#include <vector>
-
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-
-
 // Button states
 enum ButtonState {IDLE = 0, HOVER, ACTIVE};
 

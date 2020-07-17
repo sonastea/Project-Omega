@@ -1,8 +1,7 @@
+#include "stdafx.h"
 #include "Game.h"
-#include "MainMenuState.h"
 
 // Static functions
-
 
 void Game::initVariables()
 {
