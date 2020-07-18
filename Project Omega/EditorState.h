@@ -27,6 +27,8 @@ private:
     sf::IntRect textureRect;
     sf::RectangleShape selectorRect;
 
+    gui::TextureSelector* textureSelector;
+
     // Functions
     void initVariables();
     void initBackground();
@@ -35,8 +37,8 @@ private:
     void initKeybinds();
     void initPauseMenu();
     void initButtons();
-    void initTileMap();
     void initGui();
+    void initTileMap();
 
 public:
     // Constructors/Destructors
