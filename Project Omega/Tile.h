@@ -11,7 +11,7 @@ protected:
 public:
 	// Constructors / Destructors
 	Tile();
-	Tile(float x, float y, float gridSizeF); // F for float
+	Tile(float x, float y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect); // F for float
 	virtual ~Tile();
 
 	/* Functions */
