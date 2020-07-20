@@ -61,7 +61,7 @@ const sf::Texture* TileMap::getTileSheet() const
 
 /* Functions */
 
-void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect)
+void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, const bool& collision, const short& type)
 {
 	/* Take three indicies from the mouse position in the grid and add a tile to that position if the internal tilemap array allows it */
 
