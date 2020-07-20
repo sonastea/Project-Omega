@@ -3,6 +3,23 @@
 
 // Initializer functions
 
+void GameState::initView()
+{
+	this->view.setSize(
+		sf::Vector2f(
+			this->stateData->gfxSettings->resolution.width,
+			this->stateData->gfxSettings->resolution.height
+		)
+	);
+
+	this->view.setCenter(
+		sf::Vector2f(
+			this->stateData->gfxSettings->resolution.width / 2.f,
+			this->stateData->gfxSettings->resolution.height / 2.f
+		)
+	);
+}
+
 void GameState::initKeybinds()
 {
 
@@ -53,6 +70,7 @@ void GameState::initPlayers()
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Assets/Images/Tiles/tilesheet1.png");
+	this->tileMap->loadFromFile("text.slmp");
 }
 
 // Constructors / Destructors
@@ -60,6 +78,7 @@ void GameState::initTileMap()
 GameState::GameState(StateData* state_data)
 	: State(state_data)
 {
+	this->initView();
 	this->initKeybinds();
 	this->initFonts();
 	this->initTextures();
@@ -76,6 +95,12 @@ GameState::~GameState()
 	delete this->tileMap;
 }
 
+/* Functions */
+void GameState::updateView(const float& dt)
+{
+	this->view.setCenter(this->player->getPosition());
+}
+
 void GameState::updateInput(const float& dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
@@ -87,7 +112,6 @@ void GameState::updateInput(const float& dt)
 	}
 }
 
-// Functions
 void GameState::updatePlayerInput(const float& dt)
 {
 	// Update player input
@@ -109,12 +133,13 @@ void GameState::updatePauseMenuButtons()
 
 void GameState::update(const float& dt)
 {
-	this->updateMousePositions();
+	this->updateMousePositions(&this->view);
 	this->updateKeytime(dt);
 	this->updateInput(dt);
 
 	if (!this->paused) // Unpaused update
 	{
+		this->updateView(dt);
 
 		this->updatePlayerInput(dt);
 
@@ -122,7 +147,7 @@ void GameState::update(const float& dt)
 	}
 	else // Paused update
 	{
-		this->pmenu->update(this->mousePosView);
+		this->pmenu->update(this->mousePosWindow);
 		this->updatePauseMenuButtons();
 	}
 }
@@ -132,12 +157,14 @@ void GameState::render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 
-	//this->map.render(*target);
+	target->setView(this->view);
+	this->tileMap->render(*target);
 
 	this->player->render(*target);
 
 	if (this->paused) // Paused menu render
 	{
+		target->setView(this->window->getDefaultView());
 		this->pmenu->render(*target);
 	}
 }

@@ -32,9 +32,13 @@ public:
 	void createMovementComponent(const float maxVelocityy, const float acceleration, const float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 
+	// Accessors / Getters
+	virtual const sf::Vector2f& getPosition() const;
+
+	// Modifers
+	virtual void setPosition(const sf::Vector2f pos);
 
 	// Functions
-	virtual void setPosition(const sf::Vector2f pos);
 	virtual void move(const sf::Vector2f& direction, const float& dt);
 
 	virtual void update(const float& dt);

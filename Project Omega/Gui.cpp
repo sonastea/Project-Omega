@@ -83,13 +83,13 @@ void gui::Button::setid(const short unsigned id)
 /*				Functions
 	Update the booleans for hover and ACTIVE  */
 
-void gui::Button::update(const sf::Vector2f& mousePos)
+void gui::Button::update(const sf::Vector2i& mousePosWindow)
 {
 	this->buttonState = ButtonState::IDLE;
 
 	// Hover & ACTIVE conditional
 
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
 	{
 		this->buttonState = ButtonState::HOVER;
 
@@ -204,11 +204,11 @@ void gui::DropDownList::updateKeytime(const float& dt)
 
 /* Functions */
 
-void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
+void gui::DropDownList::update(const sf::Vector2i& mousePosWindow, const float& dt)
 {
 	this->updateKeytime(dt);
 
-	this->activeElement->update(mousePos);
+	this->activeElement->update(mousePosWindow);
 
 	if (this->activeElement->isPressed() && this->getKeytime())
 	{
@@ -222,7 +222,7 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
 	{
 		for (auto& i : this->list)
 		{
-			i->update(mousePos);
+			i->update(mousePosWindow);
 
 			if (i->isPressed() && this->getKeytime())
 			{
@@ -336,7 +336,7 @@ void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow, const floa
 {
 	/* GUI for picking from tile sheet*/
 	this->updateKeytime(dt);
-	this->hide_btn->update(static_cast<sf::Vector2f>(mousePosWindow));
+	this->hide_btn->update(mousePosWindow);
 
 	if (this->hide_btn->isPressed() && this->getKeytime())
 	{
