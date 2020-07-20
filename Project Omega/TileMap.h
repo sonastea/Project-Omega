@@ -8,6 +8,8 @@ class Tile;
 class TileMap
 {
 private:
+	void clear();
+
 	float gridSizeF; // F for float
 	unsigned gridSizeU;
 	sf::Vector2u maxSize;
