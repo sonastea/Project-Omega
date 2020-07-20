@@ -20,6 +20,10 @@ public:
 		bool collision = false, short type = TileTypes::DEFAULT);
 	virtual ~Tile();
 
+	/* Accessors / Getters */
+	const bool& getCollision() const;
+	const sf::Vector2f& getPosition() const;
+	
 	/* Functions */
 	const std::string getAsString() const; // Returns a tile as a string
 

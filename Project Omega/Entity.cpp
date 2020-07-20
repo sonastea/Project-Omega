@@ -47,13 +47,27 @@ void Entity::createAnimationComponent(sf::Texture& texture_sheet)
 
 const sf::Vector2f& Entity::getPosition() const
 {
+	if (this->hitboxComponent)
+		return this->hitboxComponent->getPosition();
+
 	return this->sprite.getPosition();
+}
+
+const sf::FloatRect Entity::getGlobalBounds() const
+{
+	if (this->hitboxComponent)
+		return this->hitboxComponent->getGlobalBounds();
+
+	return this->sprite.getGlobalBounds();
 }
 
 /* Modifiers */
 void Entity::setPosition(const sf::Vector2f pos)
 {
-	this->sprite.setPosition(sf::Vector2f(pos.x, pos.y));
+	if (this->hitboxComponent)
+		this->hitboxComponent->setPosition(pos);
+	else
+		this->sprite.setPosition(pos);
 }
 
 /* Functions */
@@ -74,8 +88,4 @@ void Entity::update(const float& dt)
 
 void Entity::render(sf::RenderTarget& target)
 {
-		target.draw(this->sprite); // rendering itself to the screen
-
-		if (this->hitboxComponent)
-			this->hitboxComponent->render(target);
 }
