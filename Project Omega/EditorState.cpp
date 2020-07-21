@@ -15,8 +15,9 @@ void EditorState::initView()
 {
 	this->view.setSize
 	(
-		sf::Vector2f(this->stateData->gfxSettings->resolution.width,
-		this->stateData->gfxSettings->resolution.height
+		sf::Vector2f(
+			static_cast<float>(this->stateData->gfxSettings->resolution.width),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height)
 		)
 	);
 

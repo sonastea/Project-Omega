@@ -140,14 +140,17 @@ void Game::update()
     this->updateSFMLEvents();
 
     if (!this->states.empty()) //&& this->window->hasFocus()) 
-    { 
-        this->states.top()->update(this->dt); 
-
-        if (this->states.top()->getQuit()) // Quit state conditional
+    {
+        if (this->window->hasFocus())
         {
-            this->states.top()->endState();
-            delete this->states.top();
-            this->states.pop();
+            this->states.top()->update(this->dt);
+
+            if (this->states.top()->getQuit()) // Quit state conditional
+            {
+                this->states.top()->endState();
+                delete this->states.top();
+                this->states.pop();
+            }
         }
     }
     // Application end

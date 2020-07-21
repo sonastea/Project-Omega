@@ -6,7 +6,7 @@ gui::Button::Button(float x, float y, float width, float height,
 	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 	sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
 	sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
-	short unsigned id)
+	short unsigned id) : pressed(false), hover(false)
 {
 	this->buttonState = ButtonState::IDLE;
 	this->id = id;
@@ -151,7 +151,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height,
 		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 200)
 	);
 
-	for (unsigned short i = 0; i < nrOfElements; i++)
+	for (unsigned i = 0; i < nrOfElements; i++)
 	{
 		this->list.push_back(
 			new gui::Button(
@@ -273,11 +273,11 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 	// Check it doesn't go outside bounds of texture box
 	if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width)
 	{
-		this->sheet.setTextureRect(sf::IntRect(0, 0, this->bounds.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+		this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
 	}
 	if (this->sheet.getGlobalBounds().height > this->bounds.getGlobalBounds().height)
 	{
-		this->sheet.setTextureRect(sf::IntRect(0, 0, this->bounds.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+		this->sheet.setTextureRect(sf::IntRect(0, 0, static_cast<int>(this->bounds.getGlobalBounds().width), static_cast<int>(this->sheet.getGlobalBounds().height)));
 	}
 
 	this->selector.setPosition(x + offset, y);

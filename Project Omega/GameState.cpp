@@ -25,8 +25,8 @@ void GameState::initView()
 {
 	this->view.setSize(
 		sf::Vector2f(
-			this->stateData->gfxSettings->resolution.width,
-			this->stateData->gfxSettings->resolution.height
+			static_cast<float>(this->stateData->gfxSettings->resolution.width),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height)
 		)
 	);
 
@@ -153,7 +153,7 @@ void GameState::updatePauseMenuButtons()
 void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->update();
-	this->tileMap->updateCollision(this->player);
+	this->tileMap->updateCollision(this->player, dt);
 }
 
 void GameState::update(const float& dt)
@@ -166,11 +166,11 @@ void GameState::update(const float& dt)
 	{
 		this->updateView(dt);
 
-		this->updatePlayerInput(dt);
+		this->updatePlayerInput(dt); // Wait for input
 
-		this->player->update(dt);
+		this->updateTileMap(dt); // Check for the collision
 
-		this->updateTileMap(dt);
+		this->player->update(dt); // Move the player
 	}
 	else // Paused update
 	{
@@ -187,7 +187,7 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture);
+	this->tileMap->render(this->renderTexture, this->player);
 
 	this->player->render(this->renderTexture);
 

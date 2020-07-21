@@ -11,7 +11,7 @@ class State;
 class StateData
 {
 public:
-	StateData() {}
+	StateData() {};
 
 	// Variables
 	float gridSize;
@@ -40,7 +40,7 @@ protected:
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
-	sf::Vector2u mousePosGrid;
+	sf::Vector2i mousePosGrid;
 
 
 	// Resources
