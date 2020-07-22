@@ -62,8 +62,8 @@ const sf::Vector2i Entity::getGridPosition(const int gridSizeI) const
 		);
 
 	return sf::Vector2i(
-		static_cast<int>(this->hitboxComponent->getPosition().x) / gridSizeI,
-		static_cast<int>(this->hitboxComponent->getPosition().y) / gridSizeI
+		static_cast<int>(this->sprite.getPosition().x) / gridSizeI,
+		static_cast<int>(this->sprite.getPosition().y) / gridSizeI
 	);
 }
 

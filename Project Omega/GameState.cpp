@@ -87,7 +87,7 @@ void GameState::initPlayers()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Assets/Images/Tiles/tilesheet1.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "Assets/Images/Tiles/tilesheet1.png");
 	this->tileMap->loadFromFile("text.slmp");
 }
 
@@ -187,9 +187,11 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture, this->player);
+	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
 
 	this->player->render(this->renderTexture);
+
+	this->tileMap->renderDeferred(this->renderTexture);
 
 	if (this->paused) // Paused menu render
 	{

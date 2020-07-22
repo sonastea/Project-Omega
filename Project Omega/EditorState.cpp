@@ -8,7 +8,8 @@ void EditorState::initVariables()
 	this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->stateData->gridSize), static_cast<int>(this->stateData->gridSize));
 	this->collision = false;
 	this->type = TileTypes::DEFAULT;
-	this->cameraSpeed = 100.f;
+	this->cameraSpeed = 200.f;
+	this->layer = 0;
 }
 
 void EditorState::initView()
@@ -97,7 +98,7 @@ void EditorState::initGui()
 
 	this->textureSelector = new gui::TextureSelector
 	(
-		20.f, 20.f, 500.f, 500.f, 
+		20.f, 20.f, 800.f, 800.f, 
 		this->stateData->gridSize, this->tileMap->getTileSheet(),
 		this->font, "TS"
 	); 
@@ -105,7 +106,7 @@ void EditorState::initGui()
 
 void EditorState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Assets/Images/Tiles/tilesheet1.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "Assets/Images/Tiles/tilesheet1.png");
 }
 
 
@@ -246,7 +247,8 @@ void EditorState::updateGui(const float& dt)
 		"\n" << this->mousePosGrid.x << " " << this->mousePosGrid.y <<
 		"\n" << this->textureRect.left << " " << this->textureRect.top <<
 		"\n" << "Collision: " << this->collision <<
-		"\n" << "Type: " << this->type;
+		"\n" << "Type: " << this->type <<
+		"\n" << "Tiles: " << this->tileMap->getLayerSize(this->mousePosGrid.x, this->mousePosGrid.y, this->layer);
 
 	this->cursorText.setString(ss.str());
 }
@@ -315,7 +317,8 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window; // update mouse pos depending on mouse position
 
 	target->setView(this->view);
-	this->tileMap->render(*target);
+	this->tileMap->render(*target, this->mousePosGrid);
+	this->tileMap->renderDeferred(*target);
 	
 	// Default view
 	target->setView(this->window->getDefaultView());
