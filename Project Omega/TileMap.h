@@ -37,7 +37,7 @@ public:
 
 	/* Accessors / Getters */
 	const sf::Texture* getTileSheet() const;
-	const int getLayerSize(const unsigned x, const unsigned y, const unsigned layer) const;
+	const int getLayerSize(const int x, const int y, const int layer) const;
 	/* Functions */
 	void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type);
 	void removeTile(const int x, const int y, const int z);

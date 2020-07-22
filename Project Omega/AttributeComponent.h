@@ -7,10 +7,10 @@ public:
 	/* ========================VARIABLES======================== */
 
 	// Leveling
-	unsigned exp;
-	unsigned level;
-	unsigned expNext;
-	unsigned attributePoints;
+	int exp;
+	int level;
+	int expNext;
+	int attributePoints;
 	
 	// Attributes
 	int vitality;
@@ -31,13 +31,13 @@ public:
 	/* ========================FUNCTIONS======================== */
 
 	// Constructor / Destructor
-	AttributeComponent(unsigned level);
+	AttributeComponent(int level);
 	virtual ~AttributeComponent();
 
 	// Functions
 	std::string debugPrint() const;
 
-	void gainExp(const unsigned exp);
+	void gainExp(const int exp);
 
 	void updateStats(const bool reset);
 	void updateLevel();

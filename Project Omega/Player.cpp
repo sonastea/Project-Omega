@@ -57,7 +57,7 @@ void Player::gainHP(const int hp)
 		this->attributeComponent->hp = this->attributeComponent->hpMax;
 }
 
-void Player::loseEXP(const unsigned exp)
+void Player::loseEXP(const int exp)
 {
 	this->attributeComponent->exp -= exp;
 
@@ -65,7 +65,7 @@ void Player::loseEXP(const unsigned exp)
 		this->attributeComponent->exp = 0;
 }
 
-void Player::gainEXP(const unsigned exp)
+void Player::gainEXP(const int exp)
 {
 	this->attributeComponent->gainExp(exp);
 }
