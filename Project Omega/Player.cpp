@@ -25,6 +25,7 @@ Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
 	this->createHitboxComponent(this->sprite, 86.f, 74.f, 86.f, 111.f);
 	this->createMovementComponent(350.f, 1500.f, 500.f);
 	this->createAnimationComponent(texture_sheet);
+	this->createAttributeComponent(0);
 
 	this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 13, 0, 192, 192);
 	this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 11, 1, 192, 192);
@@ -116,7 +117,6 @@ void Player::update(const float& dt)
 	this->updateAnimation(dt);
 
 	this->hitboxComponent->update();
-
 }
 
 void Player::render(sf::RenderTarget& target)
