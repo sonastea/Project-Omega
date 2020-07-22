@@ -20,7 +20,14 @@ public:
     Player(sf::Vector2f pos, sf::Texture& texture_sheet);
     virtual ~Player();
 
+    // Accessors / Getters
+    AttributeComponent* getAttributeComponent();
+
     // Functions
+    void loseHP(const int hp);
+    void gainHP(const int hp);
+    void loseEXP(const unsigned exp);
+    void gainEXP(const unsigned exp);
     void updateAttack();
     void updateAnimation(const float& dt);
     void update(const float& dt);
