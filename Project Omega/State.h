@@ -60,6 +60,9 @@ public:
 	const bool getKeytime();
 
 	// Functions
+	const float p2pX(const float perc);
+	const float p2pY(const float perc);
+
 	void endState();
 	void pauseState();
 	void unpauseState();
