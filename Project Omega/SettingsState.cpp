@@ -8,24 +8,6 @@ void SettingsState::initVariables()
 	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
-void SettingsState::initBackground()
-{
-	this->background.setSize
-	(sf::Vector2f
-	(
-		static_cast<float>(this->window->getSize().x),
-		static_cast<float>(this->window->getSize().y)
-	)
-	);
-
-	if (!this->bgTexture.loadFromFile("Assets/Images/Backgrounds/bg-1-1080p.png"))
-	{
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
-
-	this->background.setTexture(&this->bgTexture);
-}
-
 void SettingsState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/Gasalt-Regular.ttf"))
@@ -55,37 +37,60 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
+	// Initialize background
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height)
+		)
+	);
+
+	if (!this->bgTexture.loadFromFile("Assets/Images/Backgrounds/bg-1-1080p.png"))
+	{
+		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+
+	this->background.setTexture(&this->bgTexture);
+
+	// Buttons
 	this->buttons["BACK"] = new gui::Button
 	(	
-		1500.f, 880.f, 250.f, 50.f,
-		&this->font, "Back", 36,
+		gui::p2pX(78.1f, vm), gui::p2pY(81.5f, vm), 
+		gui::p2pX(13.f, vm), gui::p2pY(4.6f, vm),
+		&this->font, "Back", gui::calcCharSize(vm),
 		sf::Color(100, 250, 250, 200), sf::Color(0, 250, 250, 250), sf::Color(25, 20, 20, 250),
 		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
 	this->buttons["APPLY"] = new gui::Button
 	(
-		1300.f, 880.f, 250.f, 50.f,
-		&this->font, "Apply", 36,
+		gui::p2pX(67.7f, vm), gui::p2pY(81.5f, vm), 
+		gui::p2pX(13.f, vm), gui::p2pY(4.6f, vm),
+		&this->font, "Apply", gui::calcCharSize(vm),
 		sf::Color(100, 250, 250, 200), sf::Color(0, 250, 250, 250), sf::Color(25, 20, 20, 250),
 		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
+	// Modes
 	std::vector<std::string> modes_str;
-
 	for (auto& i : this->modes)
 	{
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
 
-	this->dropDownLists["RESOLUTIONS"] = new gui::DropDownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
-}
+	// Drop down lists 
+	this->dropDownLists["RESOLUTIONS"] = new gui::DropDownList(
+		gui::p2pX(42.f, vm), gui::p2pY(42.f, vm), 
+		gui::p2pX(10.4f, vm), gui::p2pY(4.6f, vm), 
+		font, modes_str.data(), modes_str.size());
 
-void SettingsState::initText()
-{
+	// Init text
 	this->optionsText.setFont(this->font);
-	this->optionsText.setPosition(sf::Vector2f(100.f, 450.f));
-	this->optionsText.setCharacterSize(30);
+	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(5.2f, vm), gui::p2pY(41.7f, vm)));
+	this->optionsText.setCharacterSize(gui::calcCharSize(vm, 70));
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 
@@ -94,17 +99,39 @@ void SettingsState::initText()
 	);
 }
 
+void SettingsState::resetGui()
+{
+	/*
+	* Clears the GUI elements and re-initializes the GUI.
+	* 
+	* @return void
+	*/
+
+	for (auto itr = this->buttons.begin(); itr != this->buttons.end(); ++itr)
+	{
+		delete itr->second;
+	}
+	this->buttons.clear();
+
+
+	for (auto itr2 = this->dropDownLists.begin(); itr2 != this->dropDownLists.end(); ++itr2)
+	{
+		delete itr2->second;
+	}
+	this->dropDownLists.clear();
+
+	this->initGui();
+}
 
 // Constructors / Destructors
 SettingsState::SettingsState(StateData* state_data)
 	: State(state_data)
 {
 	this->initVariables();
-	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
-	this->initText();
+	this->resetGui();
 }
 
 SettingsState::~SettingsState()
@@ -154,6 +181,7 @@ void SettingsState::updateGui(const float& dt)
 		// TEST REMOVE LATER
 		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTIONS"]->getActiveElementId()];
 		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+		this->resetGui();
 	}
 
 	// Dropdown lists
@@ -204,12 +232,12 @@ void SettingsState::render(sf::RenderTarget* target)
 
 	target->draw(this->optionsText);
 
-
 	// REMOVE LATER !!!!! SHOWS COORDS OF MOUSE ON CURSOR 
 	sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 25);
 	mouseText.setFont(this->font);
 	mouseText.setCharacterSize(20);
+
 	std::stringstream ss;
 	ss << this->mousePosView.x << " " << this->mousePosView.y;
 	mouseText.setString(ss.str());

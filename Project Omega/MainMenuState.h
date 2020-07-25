@@ -24,10 +24,10 @@ private:
 
     // Functions
     void initVariables();
-    void initBackground();
     void initFonts();
     void initKeybinds();
-    void initButtons();
+    void initGui();
+    void resetGui();
 
 public:
     // Constructors/Destructors

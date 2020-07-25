@@ -6,6 +6,10 @@ enum ButtonState {IDLE = 0, HOVER = 1, ACTIVE = 2};
 
 namespace gui
 {
+	const float p2pX(const float perc, const sf::VideoMode& vm);
+	const float p2pY(const float perc, const sf::VideoMode& vm);
+	const unsigned calcCharSize(const sf::VideoMode& vm, const unsigned modifier = 60);
+
 	class Button
 	{
 	private:
@@ -45,7 +49,8 @@ namespace gui
 
 	public:
 		// Constructor/Destructor
-		Button(float x, float y, float width, float height,
+		Button(float x, float y, 
+			float width, float height,
 			sf::Font* font, std::string text, unsigned character_size,
 			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 			sf::Color idle_color, sf::Color hover_color, sf::Color active_color,

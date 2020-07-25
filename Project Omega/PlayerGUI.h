@@ -2,8 +2,10 @@
 #define PLAYERGUI_H
 
 #include "Player.h"
+#include "Gui.h"
 
 class Player;
+class Gui;
 class sf::RectangleShape;
 
 class PlayerGUI
@@ -11,6 +13,7 @@ class PlayerGUI
 private:
 	Player* player;
 
+	sf::VideoMode& vm;
 	sf::Font font;
 
 	/* LEVEL BAR */
@@ -40,7 +43,7 @@ private:
 
 public:
 	/* Constructor / Destructor */
-	PlayerGUI(Player* player);
+	PlayerGUI(Player* player, sf::VideoMode& vm);
 	virtual ~PlayerGUI();
 
 	/* Functions */
