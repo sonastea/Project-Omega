@@ -48,12 +48,23 @@ void MainMenuState::initGui()
 	)
 	);
 
-	if (!this->bgTexture.loadFromFile("Assets/Images/Backgrounds/bg-1-1080p.png"))
+	if (!this->bgTexture.loadFromFile("Assets/Textures/Background/bg-1-1080p.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
 	this->background.setTexture(&this->bgTexture);
+	
+	// Initialize button background
+	this->btnBackground.setSize(
+		sf::Vector2f(
+			static_cast<float>(vm.width / 5),
+			static_cast<float>(vm.height)
+		)
+	);
+	
+	this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);
+	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 0));
 
 	// Initialize buttons in the main menu state
 	this->buttons["GAME_STATE"] = new gui::Button
@@ -197,6 +208,8 @@ void MainMenuState::render(sf::RenderTarget* target)
 		target = this->window; // update mouse pos depending on mouse position
 
 	target->draw(this->background);
+
+	target->draw(this->btnBackground);
 
 	this->renderButtons(*target);
 

@@ -48,7 +48,7 @@ void PlayerGUI::initEXPBar()
 	this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 200));
 	this->expBarText.setPosition(
 		this->expBarInner.getPosition().x + gui::p2pX(0.52f, this->vm),
-		this->expBarInner.getPosition().y + gui::p2pY(0.2f, this->vm)
+		this->expBarInner.getPosition().y + gui::p2pY(0.15f, this->vm)
 	);
 }
 

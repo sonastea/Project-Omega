@@ -107,7 +107,7 @@ void EditorState::initGui()
 
 void EditorState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Assets/Images/Tiles/tilesheet1.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Assets/Textures/Tiles/tilesheet1.png");
 }
 
 
@@ -318,7 +318,7 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window; // update mouse pos depending on mouse position
 
 	target->setView(this->view);
-	this->tileMap->render(*target, this->mousePosGrid);
+	this->tileMap->render(*target, this->mousePosGrid, true);
 	this->tileMap->renderDeferred(*target);
 	
 	// Default view

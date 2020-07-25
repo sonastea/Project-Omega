@@ -48,7 +48,7 @@ void SettingsState::initGui()
 		)
 	);
 
-	if (!this->bgTexture.loadFromFile("Assets/Images/Backgrounds/bg-1-1080p.png"))
+	if (!this->bgTexture.loadFromFile("Assets/Textures/Background/bg-1-1080p.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}

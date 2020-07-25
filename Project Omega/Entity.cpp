@@ -142,6 +142,6 @@ void Entity::update(const float& dt)
 		this->movementComponent->update(dt);
 }
 
-void Entity::render(sf::RenderTarget& target)
+void Entity::render(sf::RenderTarget& target, const bool show_hitbox)
 {
 }
