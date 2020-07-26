@@ -318,7 +318,7 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window; // update mouse pos depending on mouse position
 
 	target->setView(this->view);
-	this->tileMap->render(*target, this->mousePosGrid, true);
+	this->tileMap->render(*target, this->mousePosGrid, NULL, sf::Vector2f(), true);
 	this->tileMap->renderDeferred(*target);
 	
 	// Default view

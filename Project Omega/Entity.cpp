@@ -6,6 +6,7 @@ void Entity::initVariables()
 	this->hitboxComponent = NULL;
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
+	this->attributeComponent = NULL;
 }
 
 Entity::Entity()
@@ -54,9 +55,41 @@ void Entity::createAttributeComponent(const unsigned level)
 const sf::Vector2f& Entity::getPosition() const
 {
 	if (this->hitboxComponent)
-		return this->hitboxComponent->getPosition();
+		return this->hitboxComponent->getPosition() + 
+		sf::Vector2f
+		(
+			this->hitboxComponent->getGlobalBounds().width / 2.f,
+			this->hitboxComponent->getGlobalBounds().height / 2.f
+		);
 
-	return this->sprite.getPosition();
+	return this->sprite.getPosition() + 
+		sf::Vector2f
+		(
+			this->sprite.getGlobalBounds().width / 2.f,
+			this->sprite.getGlobalBounds().height / 2.f
+		);
+}
+
+const sf::Vector2f Entity::getCenter() const
+{
+	if (this->hitboxComponent)
+	{
+		return
+			this->hitboxComponent->getPosition() +
+			sf::Vector2f
+			(
+				this->hitboxComponent->getGlobalBounds().width / 2.f,
+				this->hitboxComponent->getGlobalBounds().height / 2.f
+			);
+	}
+
+	return
+		this->sprite.getPosition() +
+		sf::Vector2f
+		(
+			this->sprite.getGlobalBounds().width / 2.f,
+			this->sprite.getGlobalBounds().height / 2.f
+		);
 }
 
 const sf::Vector2i Entity::getGridPosition(const int gridSizeI) const
@@ -134,14 +167,4 @@ void Entity::stopVelocityY()
 {
 	if (this->movementComponent)
 		this->movementComponent->stopVelocityY();
-}
-
-void Entity::update(const float& dt)
-{
-	if (this->movementComponent)
-		this->movementComponent->update(dt);
-}
-
-void Entity::render(sf::RenderTarget& target, const bool show_hitbox)
-{
 }

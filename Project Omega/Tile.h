@@ -8,7 +8,7 @@ class Tile
 private:
 
 protected:
-	sf::RectangleShape shape;
+	sf::Sprite shape;
 	bool collision;
 	short type;
 
@@ -31,7 +31,7 @@ public:
 	const std::string getAsString() const; // Returns a tile as a string
 
 	void update();
-	void render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
 };
 
 #endif
