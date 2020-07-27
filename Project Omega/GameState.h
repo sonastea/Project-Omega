@@ -20,6 +20,7 @@ class GameState :
 {
 private:
     sf::View view;
+    sf::Vector2i viewGridPosition;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 

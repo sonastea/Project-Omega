@@ -32,8 +32,8 @@ void GameState::initView()
 
 	this->view.setCenter(
 		sf::Vector2f(
-			this->stateData->gfxSettings->resolution.width / 2.f,
-			this->stateData->gfxSettings->resolution.height / 2.f
+			static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
+			static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
 		)
 	);
 }
@@ -101,8 +101,7 @@ void GameState::initPlayerGUI()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Assets/Textures/Tiles/tilesheet3.png");
-	this->tileMap->loadFromFile("text.slmp");
+	this->tileMap = new TileMap("text.slmp");
 }
 
 // Constructors / Destructors
@@ -138,24 +137,35 @@ void GameState::updateView(const float& dt)
 		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f), 
 		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
 	);
+	
+	//std::cout << this->tileMap->getMaxSizeF().x << " " << this->view.getSize().x << "\n";
 
-	if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f)
+	if (this->tileMap->getMaxSizeF().x >= this->view.getSize().x)
 	{
-		this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
-	}
-	else if (this->view.getCenter().x + this->view.getSize().x / 2.f > 3000.f)
-	{
-		this->view.setCenter(3000.f - this->view.getSize().x / 2.f, this->view.getCenter().y);
+		if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f)
+		{
+			this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
+		}
+		else if (this->view.getCenter().x + this->view.getSize().x / 2.f > this->tileMap->getMaxSizeF().x)
+		{
+			this->view.setCenter(this->tileMap->getMaxSizeF().x - this->view.getSize().x / 2.f, this->view.getCenter().y);
+		}
 	}
 
-	if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f)
+	if (this->tileMap->getMaxSizeF().y >= this->view.getSize().y)
 	{
-		this->view.setCenter(this->view.getCenter().x, 0.f + this->view.getSize().y / 2.f);
+		if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f)
+		{
+			this->view.setCenter(this->view.getCenter().x, 0.f + this->view.getSize().y / 2.f);
+		}
+		else if (this->view.getCenter().y + this->view.getSize().y / 2.f > this->tileMap->getMaxSizeF().y)
+		{
+			this->view.setCenter(this->view.getCenter().x, this->tileMap->getMaxSizeF().y - this->view.getSize().y / 2.f);
+		}
 	}
-	else if (this->view.getCenter().y + this->view.getSize().y / 2.f > 3000.f)
-	{
-		this->view.setCenter(this->view.getCenter().x, 3000.f - this->view.getSize().y / 2.f);
-	}
+
+	this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);
+	this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
 }
 
 void GameState::updateInput(const float& dt)
@@ -243,7 +253,7 @@ void GameState::render(sf::RenderTarget* target)
 
 	this->tileMap->render(
 		this->renderTexture, 
-		this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), 
+		this->viewGridPosition, 
 		&this->coreShader,
 		this->player->getCenter(),
 		false

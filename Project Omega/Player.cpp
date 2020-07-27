@@ -146,7 +146,6 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool sho
 		// Player
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", this->getCenter());
-
 		target.draw(this->sprite, shader);
 
 		// Weapon

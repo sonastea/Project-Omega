@@ -55,19 +55,9 @@ void Entity::createAttributeComponent(const unsigned level)
 const sf::Vector2f& Entity::getPosition() const
 {
 	if (this->hitboxComponent)
-		return this->hitboxComponent->getPosition() + 
-		sf::Vector2f
-		(
-			this->hitboxComponent->getGlobalBounds().width / 2.f,
-			this->hitboxComponent->getGlobalBounds().height / 2.f
-		);
+		return this->hitboxComponent->getPosition();
 
-	return this->sprite.getPosition() + 
-		sf::Vector2f
-		(
-			this->sprite.getGlobalBounds().width / 2.f,
-			this->sprite.getGlobalBounds().height / 2.f
-		);
+	return this->sprite.getPosition();
 }
 
 const sf::Vector2f Entity::getCenter() const
@@ -131,14 +121,6 @@ void Entity::setPosition(const sf::Vector2f pos)
 		this->hitboxComponent->setPosition(pos);
 	else
 		this->sprite.setPosition(pos);
-}
-
-void Entity::setPosition(const float x, const float y)
-{
-	if (this->hitboxComponent)
-		this->hitboxComponent->setPosition(x, y);
-	else
-		this->sprite.setPosition(x, y);
 }
 
 /* Functions */

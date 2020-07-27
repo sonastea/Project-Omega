@@ -10,6 +10,7 @@ void EditorState::initVariables()
 	this->type = TileTypes::DEFAULT;
 	this->cameraSpeed = 200.f;
 	this->layer = 0;
+	this->tileAddLock = false;
 }
 
 void EditorState::initView()
@@ -107,7 +108,7 @@ void EditorState::initGui()
 
 void EditorState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Assets/Textures/Tiles/tilesheet3.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Assets/Textures/Tiles/tilesheet3.png");
 }
 
 
@@ -184,7 +185,17 @@ void EditorState::updateEditorInput(const float& dt)
 		{
 			if (!this->textureSelector->getActive())
 			{
-				this->tileMap->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect, this->collision, this->type);
+				if (this->tileAddLock)
+				{
+					if (this->tileMap->isEmpty(this->mousePosGrid.x, this->mousePosGrid.y, 0))
+					{
+						this->tileMap->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect, this->collision, this->type);
+					}
+				}
+				else
+				{
+					this->tileMap->addTile(this->mousePosGrid.x, this->mousePosGrid.y, 0, this->textureRect, this->collision, this->type);
+				}
 			}
 			else
 			{
@@ -221,6 +232,12 @@ void EditorState::updateEditorInput(const float& dt)
 		if (this->type > 0)
 			--this->type;
 	}
+
+	// Set lock on / off
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_TILE_LOCK"))) && this->getKeytime())
+	{
+		this->tileAddLock = !this->tileAddLock;
+	}
 }
 
 void EditorState::updateButtons()
@@ -249,7 +266,8 @@ void EditorState::updateGui(const float& dt)
 		"\n" << this->textureRect.left << " " << this->textureRect.top <<
 		"\n" << "Collision: " << this->collision <<
 		"\n" << "Type: " << this->type <<
-		"\n" << "Tiles: " << this->tileMap->getLayerSize(this->mousePosGrid.x, this->mousePosGrid.y, this->layer);
+		"\n" << "Tiles: " << this->tileMap->getLayerSize(this->mousePosGrid.x, this->mousePosGrid.y, this->layer) <<
+		"\n" << "Tile lock: " << this->tileAddLock;
 
 	this->cursorText.setString(ss.str());
 }

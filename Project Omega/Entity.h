@@ -45,7 +45,6 @@ public:
 
 	// Modifers
 	virtual void setPosition(const sf::Vector2f pos);
-	virtual void setPosition(const float x, const float y);
 
 	// Functions
 	virtual void move(const sf::Vector2f& direction, const float& dt);
