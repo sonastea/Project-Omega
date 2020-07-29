@@ -81,7 +81,6 @@ TileMap::TileMap(const std::string file_name)
 	this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
 	this->collisionBox.setOutlineColor(sf::Color::Red);
 	this->collisionBox.setOutlineThickness(1.f);
-
 }
 
 TileMap::~TileMap()
@@ -430,13 +429,13 @@ void TileMap::render(
 {
 	this->layer = 0;
 
-	this->fromX = gridPosition.x - 14;
+	this->fromX = gridPosition.x - 15;
 	if (this->fromX < 0)
 		this->fromX = 0;
 	else if (this->fromX > this->maxSizeWorldGrid.x)
 		this->fromX = this->maxSizeWorldGrid.x;
 
-	this->toX = gridPosition.x + 15;
+	this->toX = gridPosition.x + 16;
 	if (this->toX < 0)
 		this->toX = 0;
 	else if (this->toX > this->maxSizeWorldGrid.x)

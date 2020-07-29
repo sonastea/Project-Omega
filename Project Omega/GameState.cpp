@@ -120,6 +120,8 @@ GameState::GameState(StateData* state_data)
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
+
+	Bow bow;
 }
 
 GameState::~GameState()

@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 
+#include "Sword.h" // testing purposes
+
 class Entity;
 
 class Player :
@@ -11,8 +13,7 @@ class Player :
 private:
     // Variables
     bool isAttacking;
-    sf::Texture weaponTexture;
-    sf::Sprite weaponSprite;
+    Sword sword;
 
     // Initializer functions
     void initVariables();

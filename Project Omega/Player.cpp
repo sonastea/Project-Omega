@@ -26,6 +26,7 @@ Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
 	this->createMovementComponent(200.f, 1600.f, 1000.f);
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
+	this->createSkillComponent();
 
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 8, 0, 64, 64);
 	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 1, 3, 1, 64, 64);
@@ -33,21 +34,6 @@ Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
 	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
-
-	
-	// Visual Weapon
-	if (!this->weaponTexture.loadFromFile("Assets/Models/Weapon/stellar-sword.png"))
-	{
-		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-	}
-
-	this->weaponSprite.setTexture(weaponTexture);
-
-	this->weaponSprite.setOrigin
-	(
-		this->weaponSprite.getGlobalBounds().width / 2.f,
-		this->weaponSprite.getGlobalBounds().height
-	);
 }
 
 Player::~Player()
@@ -127,16 +113,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 	this->hitboxComponent->update();
 
-	// Update visual weapon
-	this->weaponSprite.setPosition(this->getCenter());
-
-	float dX = mouse_pos_view.x - this->weaponSprite.getPosition().x;
-	float dY = mouse_pos_view.y - this->weaponSprite.getPosition().y;
-
-	const float PI = 3.14159265;
-	float deg = atan2(dY, dX) * 180 / PI;
-
-	this->weaponSprite.setRotation(deg + 90.f);
+	this->sword.update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
@@ -152,12 +129,12 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool sho
 
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", this->getCenter());
-		target.draw(this->weaponSprite, shader);
+		this->sword.render(target, shader);
 	}
 	else
 	{
 		target.draw(this->sprite);
-		target.draw(this->weaponSprite);
+		this->sword.render(target);
 	}
 
 
