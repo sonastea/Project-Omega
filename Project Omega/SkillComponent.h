@@ -3,9 +3,9 @@
 
 enum SKILLS 
 { 
-	HEALTH = 0, 
-	ATTACK = 1,
-	ACCURACY = 2,
+	CONSTITUTION = 0, 
+	MELEE_COMBAT = 1,
+	RANGED_COMBAT = 2,
 	ENDURANCE = 3
 };
 

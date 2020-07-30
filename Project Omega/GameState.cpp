@@ -91,7 +91,7 @@ void GameState::initShaders()
 
 void GameState::initPlayers()
 {
-	this->player = new Player(sf::Vector2f(0, 0), this->textures["PLAYER_SHEET"]);
+	this->player = new Player(sf::Vector2f(200, 200), this->textures["PLAYER_SHEET"]);
 }
 
 void GameState::initPlayerGUI()
@@ -115,13 +115,13 @@ GameState::GameState(StateData* state_data)
 	this->initFonts();
 	this->initTextures();
 	this->initPauseMenu();
-
 	this->initShaders();
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
 
-	Bow bow;
+	this->testEnemy = new Enemy(sf::Vector2f(200.f, 200.f), this->textures["PLAYER_SHEET"]);
 }
 
 GameState::~GameState()
@@ -130,6 +130,7 @@ GameState::~GameState()
 	delete this->player;
 	delete this->playerGUI;
 	delete this->tileMap;
+	delete this->testEnemy;
 }
 
 /* Functions */
@@ -217,6 +218,7 @@ void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->update();
 	this->tileMap->updateCollision(this->player, dt);
+	this->tileMap->updateCollision(this->testEnemy, dt);
 }
 
 void GameState::update(const float& dt)
@@ -236,6 +238,9 @@ void GameState::update(const float& dt)
 		this->player->update(dt, this->mousePosView); // Move the player
 
 		this->playerGUI->update(dt); 
+
+		this->testEnemy->update(dt, this->mousePosView);
+		this->testEnemy->move(sf::Vector2f(1.f, 0.f), dt);
 	}
 	else // Paused update
 	{
@@ -262,6 +267,8 @@ void GameState::render(sf::RenderTarget* target)
 	);
 
 	this->player->render(this->renderTexture, &this->coreShader, false);
+
+	this->testEnemy->render(this->renderTexture, &this->coreShader, false);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->coreShader, this->player->getCenter());
 

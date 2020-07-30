@@ -8,11 +8,13 @@
 #include "PlayerGUI.h"
 #include "Sword.h"
 #include "Bow.h"
+#include "Enemy.h"
 
 class Player;
 class PlayerGUI;
 class PauseMenu;
 class TileMap;
+class Enemy;
 class sf::View;
 class sf::Font;
 class sf::RenderTexture;
@@ -34,6 +36,8 @@ private:
     Player* player;
     PlayerGUI* playerGUI;
     sf::Texture texture;
+
+    Enemy* testEnemy;
 
     TileMap* tileMap;
 

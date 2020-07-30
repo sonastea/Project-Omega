@@ -18,6 +18,7 @@ private:
     // Initializer functions
     void initVariables();
     void initComponents();
+    void initAnimations();
 
 public:
     Player(sf::Vector2f pos, sf::Texture& texture_sheet);
