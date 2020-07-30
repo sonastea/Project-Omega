@@ -2,13 +2,17 @@
 #define ENEMY_H
 
 #include "Entity.h"
+#include "EnemySpawner.h"
+
+class Entity;
+class EnemySpawner;
 
 class Enemy :
     public Entity
 {
 private:
     // Variables
-
+    EnemySpawner& enemySpawner;
 
     // Initializer Functions
     void initVariables();
@@ -16,7 +20,7 @@ private:
 
 public:
     // Constructor / Destructor
-    Enemy(sf::Vector2f pos, sf::Texture& texture_sheet);
+    Enemy(EnemySpawner& enemy_spawner, sf::Vector2f pos, sf::Texture& texture_sheet);
     virtual ~Enemy();
 
     // Functions

@@ -19,7 +19,8 @@ void Enemy::initAnimations()
 
 /* Constructors / Destructors */
 
-Enemy::Enemy(sf::Vector2f pos, sf::Texture& texture_sheet)
+Enemy::Enemy(EnemySpawner& enemy_spawner, sf::Vector2f pos, sf::Texture& texture_sheet)
+	: enemySpawner(enemy_spawner)
 {
 	this->initVariables();
 
