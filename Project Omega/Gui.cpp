@@ -460,7 +460,7 @@ gui::ProgressBar::ProgressBar(
 		this->text.setOutlineThickness(2.f);
 		this->text.setPosition(
 			this->inner.getPosition().x + gui::p2pX(0.52f, vm),
-			this->inner.getPosition().y + gui::p2pY(0.47f, vm)
+			this->inner.getPosition().y + gui::p2pY(0.22f, vm)
 		);
 	}
 }

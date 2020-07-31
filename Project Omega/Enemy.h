@@ -12,7 +12,7 @@ class Enemy :
 {
 private:
     // Variables
-    EnemySpawner& enemySpawner;
+    //EnemySpawner& enemySpawner;
 
     // Initializer Functions
     void initVariables();
@@ -20,7 +20,7 @@ private:
 
 public:
     // Constructor / Destructor
-    Enemy(EnemySpawner& enemy_spawner, sf::Vector2f pos, sf::Texture& texture_sheet);
+    Enemy(sf::Vector2f pos, sf::Texture& texture_sheet);
     virtual ~Enemy();
 
     // Functions
