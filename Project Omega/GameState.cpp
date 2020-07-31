@@ -258,7 +258,7 @@ void GameState::render(sf::RenderTarget* target)
 		false
 	);
 
-	this->player->render(this->renderTexture, &this->coreShader, false);
+	this->player->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->coreShader, this->player->getCenter());
 

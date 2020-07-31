@@ -74,13 +74,13 @@ void Enemy::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 }
 
-void Enemy::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
+void Enemy::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
 {
 	if (shader)
 	{
 		// Player
 		shader->setUniform("hasTexture", true);
-		shader->setUniform("lightPos", this->getCenter());
+		shader->setUniform("lightPos", light_position);
 		target.draw(this->sprite, shader);
 	}
 	else

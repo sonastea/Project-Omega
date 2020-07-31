@@ -40,6 +40,9 @@
     <Filter Include="Map\Tile">
       <UniqueIdentifier>{2b3e0d93-2ab1-49ba-ab00-450ab24d03b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Editor Modes">
+      <UniqueIdentifier>{e87d27b5-a447-4222-b148-97fa9ef6e7e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -126,6 +129,12 @@
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Map\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="EditorMode.cpp">
+      <Filter>States\Editor Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEditorMode.cpp">
+      <Filter>States\Editor Modes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -208,6 +217,12 @@
     </ClInclude>
     <ClInclude Include="EnemySpawner.h">
       <Filter>Map\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMode.h">
+      <Filter>States\Editor Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEditorMode.h">
+      <Filter>States\Editor Modes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

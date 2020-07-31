@@ -5,51 +5,50 @@
 #include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "DefaultEditorMode.h"
 
 class State;
+class StateData;
 class Gui;
 class PauseMenu;
 class TileMap;
+class Tile;
+class EditorMode;
+class DefaultEditorMode;
+class EditorStateData;
+
+enum class EditorModes: int { Default = 0, Enemy = 1 };
 
 class EditorState :
     public State
 {
 private:
     // Variables
+    EditorStateData editorStateData;
+
     sf::View view;
+    float cameraSpeed;
 
     sf::Font font;
-    sf::Text cursorText;
     PauseMenu* pmenu;
 
     std::map<std::string, gui::Button*> buttons;
 
     TileMap* tileMap;
 
-    sf::RectangleShape sidebar;
-
-    sf::RectangleShape selectorRect;
-
-    gui::TextureSelector* textureSelector;
-
-    sf::IntRect textureRect;
-    bool collision;
-    short type;
-    float cameraSpeed;
-    int layer;
-    bool tileAddLock;
+    std::vector<EditorMode *> modes;
 
     // Functions
     void initVariables();
+    void initEditorStateData();
     void initView();
-    void initBackground();
     void initFonts();
-    void initText();
     void initKeybinds();
     void initPauseMenu();
     void initButtons();
     void initGui();
     void initTileMap();
+    void initModes();
 
 public:
     // Constructors/Destructors
@@ -62,10 +61,21 @@ public:
     void updateButtons();
     void updateGui(const float& dt);
     void updatePauseMenuButtons();
+    void updateModes(const float& dt);
     void update(const float& dt);
     void renderButtons(sf::RenderTarget& target);
     void renderGui(sf::RenderTarget& target);
+    void renderModes(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = NULL);
 };
+
+/**
+  * Explicitly convert EditorModes types to an integer with to_int(EditorMode type)
+  */
+template<typename T>
+constexpr auto to_int(T enumerator) noexcept
+{
+    return static_cast<std::underlying_type_t<T>>(enumerator);
+}
 
 #endif
