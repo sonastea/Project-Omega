@@ -197,6 +197,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="EditorModes.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MeleeWeapon.h" />
     <ClInclude Include="PlayerGUI.h" />
