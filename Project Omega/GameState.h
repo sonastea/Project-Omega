@@ -8,7 +8,7 @@
 #include "PlayerGUI.h"
 #include "Sword.h"
 #include "Bow.h"
-#include "Enemy.h"
+#include "Enemies_include.h"
 
 class Player;
 class PlayerGUI;
