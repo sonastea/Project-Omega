@@ -2,6 +2,8 @@
 #define ENEMYEDITORMODE_H
 
 #include "EditorMode.h"
+#include "EnemySpawnerTile.h"
+
 class EnemyEditorMode :
     public EditorMode
 {

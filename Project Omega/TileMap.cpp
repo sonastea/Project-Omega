@@ -143,9 +143,24 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
 		z < this->layers && z >= 0)
 	{
 		/* OK to add tile. */
-		this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
-		std::cout << "DEBUG: ADDED TILE!" << "\n";
+		this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
+
+		/* DEBUGGING LOG */
+		std::cout << "DEBUG: ADDED REGULAR TILE!" << "\n";
 	}
+}
+
+void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md)
+{
+	if (x < this->maxSizeWorldGrid.x && x >= 0 &&
+		y < this->maxSizeWorldGrid.y && y >= 0 &&
+		z < this->layers && z >= 0)
+	{
+		this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect,
+			enemy_type, enemy_amount, enemy_tts, enemy_md));
+	}
+	/* DEBUGGING LOG */
+	std::cout << "DEBUG: ADDED ENEMYSPAWNER TILE!" << "\n";
 }
 
 void TileMap::removeTile(const int x, const int y, const int z, const int type)
@@ -189,10 +204,11 @@ void TileMap::saveToFile(const std::string file_name)
 	texture file path
 
 	All tiles: 
+	type
 	gridPos x y layer 
 	Texture rect x y
 	collision
-	type
+	tile_specific...
 	*/
 
 	std::ofstream out_file;
@@ -218,7 +234,7 @@ void TileMap::saveToFile(const std::string file_name)
 						{
 							out_file << x << " " << y << " " << z << " " <<
 								this->map[x][y][z][k]->getAsString()
-								<< " "; // MAKE SURE THIS LAST SPACE IS NOT SAVE!!!!!!
+								<< " ";
 						}
 					}
 				}
@@ -287,19 +303,46 @@ void TileMap::loadFromFile(const std::string file_name)
 			std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file << "\n";
 
 		// Load all tiles
-		while (in_file >> x >> y >> z >> trX >> trY >> collision >> type)
+		while (in_file >> x >> y >> z >> type)
 		{
-			this->map[x][y][z].push_back(
-				new Tile
-				(
-					x, y, 
-					this->gridSizeF, 
-					this->tileSheet, 
-					sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI), 
-					collision, 
-					type
-				)
-			);
+			if (type == TileTypes::ENEMYSPAWNER)
+			{
+				//amount, time, max dist
+				int enemy_type = 0;
+				int enemy_am = 0;
+				int enemy_tts = 0;
+				int enemy_md = 0;
+
+				in_file >> trX >> trY >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
+
+				this->map[x][y][z].push_back(
+					new EnemySpawnerTile(
+						x, y,
+						this->gridSizeF,
+						this->tileSheet,
+						sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+						enemy_type,
+						enemy_am,
+						enemy_tts,
+						enemy_md
+					)
+				);
+			}
+			else
+			{
+				in_file >> trX >> trY >> collision;
+
+				this->map[x][y][z].push_back(
+					new RegularTile(
+						type,
+						x, y,
+						this->gridSizeF,
+						this->tileSheet,
+						sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+						collision
+					)
+				);
+			}
 		}
 	}
 	else

@@ -108,7 +108,6 @@ EditorState::EditorState(StateData* state_data)
 	this->initButtons();
 	this->initTileMap();
 	this->initGui();
-
 	this->initModes();
 }
 
