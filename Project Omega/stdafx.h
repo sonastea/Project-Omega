@@ -25,4 +25,13 @@
 #include <SFML\Audio.hpp>
 #include <SFML\Network.hpp>
 
+/**
+  * Explicitly convert enum class scoped types to an integer with to_int(EditorMode type)
+  */
+template<typename T>
+constexpr auto to_int(T enumerator) noexcept
+{
+    return static_cast<std::underlying_type_t<T>>(enumerator);
+}
+
 #endif

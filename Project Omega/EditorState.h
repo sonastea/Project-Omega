@@ -71,13 +71,4 @@ public:
     void render(sf::RenderTarget* target = NULL);
 };
 
-/**
-  * Explicitly convert EditorModes types to an integer with to_int(EditorMode type)
-  */
-template<typename T>
-constexpr auto to_int(T enumerator) noexcept
-{
-    return static_cast<std::underlying_type_t<T>>(enumerator);
-}
-
 #endif

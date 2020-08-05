@@ -2,6 +2,7 @@
 #define RAT_H
 
 #include "Enemy.h"
+
 class Rat :
     public Enemy
 {

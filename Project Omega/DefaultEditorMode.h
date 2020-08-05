@@ -9,7 +9,6 @@ class EditorMode;
 class TileMap;
 class Tile;
 
-
 class DefaultEditorMode :
     public EditorMode
 {
