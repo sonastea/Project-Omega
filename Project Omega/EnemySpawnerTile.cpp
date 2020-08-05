@@ -12,12 +12,14 @@ EnemySpawnerTile::EnemySpawnerTile(
 	this->enemyAmount = enemy_amount;
 	this->enemyTimeToSpawn = enemy_time_to_spawn;
 	this->enemyMaxDistance = enemy_max_distance;
+	this->spawned = false;
 }
 
 EnemySpawnerTile::~EnemySpawnerTile()
 {
 }
 
+/* Accessors / Getters */
 const std::string EnemySpawnerTile::getAsString() const
 {
 	std::stringstream ss;
@@ -38,6 +40,17 @@ const std::string EnemySpawnerTile::getAsString() const
 	std::cout << ss.str() << "\n";
 
 	return ss.str();
+}
+
+const bool& EnemySpawnerTile::getSpawned() const
+{
+	return this->spawned;
+}
+
+/* Modifiers*/
+void EnemySpawnerTile::setSpawned(const bool spawned)
+{
+	this->spawned = spawned;
 }
 
 /* Functions */

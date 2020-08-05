@@ -125,12 +125,6 @@ GameState::GameState(StateData* state_data)
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
-
-	this->activeEnemies.push_back(new Rat(sf::Vector2f(200.f, 100.f), this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(sf::Vector2f(500.f, 200.f), this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(sf::Vector2f(600.f, 300.f), this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(sf::Vector2f(400.f, 500.f), this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(sf::Vector2f(200.f, 400.f), this->textures["RAT1_SHEET"]));
 }
 
 GameState::~GameState()
@@ -229,12 +223,23 @@ void GameState::updatePauseMenuButtons()
 
 void GameState::updateTileMap(const float& dt)
 {
-	this->tileMap->update(this->player, dt);
+	this->tileMap->updateWorldBoundsCollision(this->player, dt);
+	this->tileMap->updateTileCollision(this->player, dt);
+	this->tileMap->updateTiles(this->player, dt, this->activeEnemies, this->textures);
 
 	for (auto* i : this->activeEnemies)
 	{
-		this->tileMap->update(i, dt);
+		this->tileMap->updateWorldBoundsCollision(i, dt);
+		this->tileMap->updateTileCollision(i, dt);
 	}
+}
+
+void GameState::updatePlayer(const float& dt)
+{
+}
+
+void GameState::updateEnemies(const float& dt)
+{
 }
 
 void GameState::update(const float& dt)

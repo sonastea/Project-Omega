@@ -8,7 +8,6 @@
 #include "PlayerGUI.h"
 #include "Sword.h"
 #include "Bow.h"
-#include "Enemies_include.h"
 
 class Player;
 class PlayerGUI;
@@ -65,6 +64,8 @@ public:
     void updatePlayerGUI(const float& dt);
     void updatePauseMenuButtons();
     void updateTileMap(const float& dt);
+    void updatePlayer(const float& dt);
+    void updateEnemies(const float& dt);
     void update(const float& dt);
     void render(sf::RenderTarget* target = NULL);
 };

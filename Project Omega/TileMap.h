@@ -1,9 +1,9 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
-#include "Entity.h"
 #include "EnemySpawnerTile.h"
 #include "RegularTile.h"
+#include "Enemies_include.h"
 
 class Tile;
 class Entity;
@@ -52,9 +52,14 @@ public:
 		const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md);
 	void removeTile(const int x, const int y, const int z, const int type = -1);
 
+	/* File I/O */
 	void saveToFile(const std::string file_name);
 	void loadFromFile(const std::string file_name);
-
+	
+	/* Collision Handling */
+	void updateWorldBoundsCollision(Entity* entity, const float& dt);
+	void updateTileCollision(Entity* entity, const float& dt);
+	void updateTiles(Entity* entity, const float& dt, std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures);
 
 	void update(Entity* entity, const float& dt);
 	void render(
