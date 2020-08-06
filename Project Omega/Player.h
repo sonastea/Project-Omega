@@ -13,7 +13,7 @@ class Player :
 private:
     // Variables
     bool isAttacking;
-    Sword sword;
+    Sword* sword;
 
     // Initializer functions
     void initVariables();

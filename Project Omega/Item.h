@@ -1,13 +1,25 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+enum ItemTypes { Default = 0, Melee = 1, Ranged = 2};
+
 class Item
 {
 private:
+	void initVariables();
+	
+protected:
+	/* Variables */
+	int type;
+	unsigned value;
 
 public:
-	Item();
+	/* Constructor / Destructor */
+	Item(unsigned value);
 	virtual ~Item();
+
+	/* Functions */
+	virtual Item* clone() = 0;
 };
 
 #endif // Item.h

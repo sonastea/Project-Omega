@@ -11,8 +11,11 @@ class RangedWeapon :
 private:
 
 public:
-    RangedWeapon();
+    RangedWeapon(unsigned value);
     virtual ~RangedWeapon();
+
+    /* Functions */
+    virtual RangedWeapon* clone() = 0;
 };
 
 #endif // RangedWeapon.h

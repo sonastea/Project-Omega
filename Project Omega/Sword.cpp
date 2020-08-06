@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Sword.h"
 
-Sword::Sword()
+Sword::Sword(unsigned value)
+	: MeleeWeapon(value)
 {
 	// Visual Weapon
 	if (!this->weaponTexture.loadFromFile("Assets/Models/Weapon/stellar-sword.png"))
@@ -20,6 +21,11 @@ Sword::Sword()
 
 Sword::~Sword()
 {
+}
+
+Sword* Sword::clone()
+{
+	return new Sword(*this);
 }
 
 void Sword::update(const sf::Vector2f mouse_pos_view, const sf::Vector2f center)

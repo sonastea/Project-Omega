@@ -3,7 +3,7 @@
 
 #include "Rat.h"
 
-enum class EnemyTypes { Rat = 0};
+enum class EnemyTypes : int { Rat = 0};
 
 class EnemySystem
 {
