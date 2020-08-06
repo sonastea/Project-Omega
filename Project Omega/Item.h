@@ -3,6 +3,8 @@
 
 enum class ItemTypes : int { Default = 0, Melee = 1, Ranged = 2};
 
+enum class ItemRarity : int { Normal = 0, Stellar = 1, XNova = 2, Mythical = 3, Ethereal = 4 };
+
 class Item
 {
 private:

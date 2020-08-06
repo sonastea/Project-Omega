@@ -1,17 +1,10 @@
 #include "stdafx.h"
 #include "Sword.h"
 
-Sword::Sword(unsigned value)
-	: MeleeWeapon(value)
+Sword::Sword(unsigned value, std::string texture_file)
+	: MeleeWeapon(value, texture_file)
 {
 	// Visual Weapon
-	if (!this->weaponTexture.loadFromFile("Assets/Models/Weapon/stellar-sword.png"))
-	{
-		std::cout << "ERROR::SWORD::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-	}
-
-	this->weaponSprite.setTexture(weaponTexture);
-
 	this->weaponSprite.setOrigin
 	(
 		this->weaponSprite.getGlobalBounds().width / 2.f,

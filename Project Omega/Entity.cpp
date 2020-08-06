@@ -142,7 +142,7 @@ void Entity::move(const sf::Vector2f& direction, const float& dt)
 	if (this->skillComponent)
 	{
 		this->skillComponent->gainExp(SKILLS::ENDURANCE, 1);
-		std::cout << this->skillComponent->getSkill(SKILLS::ENDURANCE) << "\n";
+		//std::cout << this->skillComponent->getSkill(SKILLS::ENDURANCE) << "\n";
 	}
 }
 
@@ -162,4 +162,9 @@ void Entity::stopVelocityY()
 {
 	if (this->movementComponent)
 		this->movementComponent->stopVelocityY();
+}
+
+const float Entity::getDistance(const Entity& entity) const
+{
+	return sqrt(pow(this->getCenter().x - entity.getCenter().x, 2) + pow(this->getCenter().y - entity.getCenter().y, 2));
 }

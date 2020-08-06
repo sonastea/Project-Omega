@@ -7,12 +7,6 @@
 #include "AttributeComponent.h"
 #include "SkillComponent.h"
 
-class HitboxComponent;
-class MovementComponent;
-class AnimationComponent;
-class AttributeComponent;
-class SkillComponent;
-
 class Entity
 {
 private:
@@ -55,6 +49,9 @@ public:
 	virtual void stopVelocity();
 	virtual void stopVelocityX();
 	virtual void stopVelocityY();
+
+	// Calculations
+	virtual const float getDistance(const Entity& entity) const;
 
 	virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
 	virtual void render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) = 0;
