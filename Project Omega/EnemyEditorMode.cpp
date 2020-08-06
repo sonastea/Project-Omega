@@ -53,7 +53,7 @@ void EnemyEditorMode::updateInput(const float& dt)
 		if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))
 		{
 			this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect,
-				this->type, this->amount, this->timeToSpawn, this->maxDistance);
+				this->type, this->amount, this->timeToSpawn, static_cast<int>(this->maxDistance));
 		}
 	}
 	//Remove a tile from the tilemap

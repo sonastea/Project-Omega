@@ -2,11 +2,11 @@
 #include "Player.h"
 
 /* Initializer functions */
-
 void Player::initVariables()
 {
 	this->isAttacking = false;
 	this->sword = new Sword(20);
+	this->inventory = new Inventory(100);
 }
 
 void Player::initComponents()
@@ -23,6 +23,10 @@ void Player::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
 }
 
+void Player::initInventory()
+{
+}
+
 /* Constructors / Destructors */
 
 Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
@@ -37,10 +41,13 @@ Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
 
 	this->setPosition(pos);
 	this->initAnimations();
+
+	this->initInventory();
 }
 
 Player::~Player()
 {
+	delete this->inventory;
 	delete this->sword;
 }
 

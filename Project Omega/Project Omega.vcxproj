@@ -203,6 +203,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="EditorModes.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MeleeWeapon.h" />

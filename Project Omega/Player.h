@@ -2,8 +2,8 @@
 #define PLAYER_H
 
 #include "Entity.h"
-
-#include "Sword.h" // testing purposes
+#include "Items.h"
+#include "Inventory.h"
 
 class Entity;
 
@@ -12,6 +12,8 @@ class Player :
 {
 private:
     // Variables
+    Inventory* inventory;
+
     bool isAttacking;
     Sword* sword;
 
@@ -19,6 +21,7 @@ private:
     void initVariables();
     void initComponents();
     void initAnimations();
+    void initInventory();
 
 public:
     Player(sf::Vector2f pos, sf::Texture& texture_sheet);

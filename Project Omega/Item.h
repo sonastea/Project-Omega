@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-enum ItemTypes { Default = 0, Melee = 1, Ranged = 2};
+enum class ItemTypes : int { Default = 0, Melee = 1, Ranged = 2};
 
 class Item
 {
