@@ -13,9 +13,16 @@ protected:
     sf::Texture weaponTexture;
     sf::Sprite weaponSprite;
 
-    int damageMin;
-    int damageMax;
+    unsigned damageMin;
+    unsigned damageMax;
     unsigned range;
+
+    sf::Clock attackTimer;
+    sf::Int32 attackTimerMax;
+
+    float cooldown;
+    float cooldownMax;
+    float cooldownIteration;
 
 public:
     /* Constructor / Destructor */
@@ -23,7 +30,10 @@ public:
     virtual ~Weapon();
 
     // Getters / Accessors
+    const unsigned& getDamageMin() const;
+    const unsigned& getDamagemax() const;
     const unsigned& getRange() const;
+    const bool getAttackTimer();
 
     /* Functions */
     virtual Item* clone() = 0;

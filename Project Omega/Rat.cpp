@@ -38,12 +38,6 @@ Rat::~Rat()
 }
 
 /* Functions */
-
-void Rat::takeDamage(const int damage)
-{
-	this->attributeComponent->loseHP(damage);
-}
-
 void Rat::updateAnimation(const float& dt)
 {
 	if (this->movementComponent->getState(IS_IDLE))
@@ -84,7 +78,6 @@ void Rat::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2
 {
 	if (shader)
 	{
-		// Player
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", light_position);
 		target.draw(this->sprite, shader);

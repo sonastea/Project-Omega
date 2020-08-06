@@ -156,6 +156,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="TextTagSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -242,9 +245,6 @@
     <ClInclude Include="EnemyEditorMode.h">
       <Filter>States\Editor Modes</Filter>
     </ClInclude>
-    <ClInclude Include="EditorModes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
@@ -268,6 +268,12 @@
     </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="TextTagSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorModes.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

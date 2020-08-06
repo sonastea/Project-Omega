@@ -16,8 +16,6 @@ public:
     virtual ~Rat();
 
     // Functions
-    void takeDamage(const int damage);
-
     void updateAnimation(const float& dt);
     void update(const float& dt, sf::Vector2f& mouse_pos_view);
     void render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox);

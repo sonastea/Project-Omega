@@ -6,7 +6,6 @@ void Player::initVariables()
 {
 	this->isAttacking = false;
 	this->sword = new Sword(20, "Assets/Models/Weapon/stellar-sword.png");
-	this->inventory = new Inventory(100);
 }
 
 void Player::initComponents()
@@ -25,6 +24,7 @@ void Player::initAnimations()
 
 void Player::initInventory()
 {
+	this->inventory = new Inventory(100);
 }
 
 /* Constructors / Destructors */
@@ -51,9 +51,15 @@ Player::~Player()
 	delete this->sword;
 }
 
+/* Accessors / Getters */
 AttributeComponent* Player::getAttributeComponent()
 {
 	return this->attributeComponent;
+}
+
+Weapon* Player::getWeapon() const
+{
+	return this->sword;
 }
 
 void Player::loseHP(const int hp)
@@ -77,15 +83,6 @@ void Player::gainEXP(const int exp)
 }
 
 /* Functions */
-
-void Player::updateAttack()
-{
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		//this->isAttacking = true;
-	}
-}
-
 void Player::updateAnimation(const float& dt)
 {
 	if (this->isAttacking)
@@ -117,8 +114,6 @@ void Player::updateAnimation(const float& dt)
 void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 {
 	this->movementComponent->update(dt);
-
-	this->updateAttack();
 
 	this->updateAnimation(dt);
 

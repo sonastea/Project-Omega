@@ -5,24 +5,57 @@
 
 void Enemy::initVariables()
 {
+	this->gainExp = 10;
 }
 
 void Enemy::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 25.f, 0, 0, 3, 0, 60, 64);
-	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 1, 3, 1, 60, 64);
-	this->animationComponent->addAnimation("WALK_LEFT", 11.f, 0, 2, 3, 2, 60, 64);
-	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 0, 3, 3, 3, 60, 64);
-	this->animationComponent->addAnimation("WALK_UP", 11.f, 0, 4, 3, 4, 60, 64);
-	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 60, 64);
 }
 
 /* Constructors / Destructors */
 
 Enemy::Enemy()
 {
+	this->initVariables();
+	this->initAnimations();
 }
 
 Enemy::~Enemy()
 {
+}
+
+const unsigned& Enemy::getGainExp() const
+{
+	return this->gainExp;
+}
+
+void Enemy::loseHP(const int hp)
+{
+	if (this->attributeComponent)
+	{
+		this->attributeComponent->loseHP(hp);
+	}
+}
+
+const bool Enemy::isDead() const
+{
+	if (this->attributeComponent)
+	{
+		return this->attributeComponent->isDead();
+	}
+
+	return false;
+}
+
+const AttributeComponent* Enemy::getAttributeComponent() const
+{
+	if (this->attributeComponent)
+	{
+		return this->attributeComponent;
+	}
+	else
+	{
+		std::cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INITIALISZED" << "\n";
+		return nullptr;
+	}
 }

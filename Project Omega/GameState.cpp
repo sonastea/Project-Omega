@@ -205,14 +205,10 @@ void GameState::updatePlayerInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
 	{
 		this->player->move(sf::Vector2f(0.f, -1.f), dt);
-		if (this->getKeytime())
-			this->player->gainEXP(10);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 	{
 		this->player->move(sf::Vector2f(0.f, 1.f), dt);
-		if (this->getKeytime())
-			this->player->loseEXP(10);
 	}
 }
 
@@ -232,36 +228,49 @@ void GameState::updateTileMap(const float& dt)
 	this->tileMap->updateWorldBoundsCollision(this->player, dt);
 	this->tileMap->updateTileCollision(this->player, dt);
 	this->tileMap->updateTiles(this->player, dt, *this->enemySystem);
-
-	for (auto* i : this->activeEnemies)
-	{
-		this->tileMap->updateWorldBoundsCollision(i, dt);
-		this->tileMap->updateTileCollision(i, dt);
-	}
 }
 
 void GameState::updatePlayer(const float& dt)
 {
 }
 
-void GameState::updateEnemies(const float& dt)
+void GameState::updateCombatAndEnemies(const float& dt)
 {
-	for (auto* i : this->activeEnemies)
+	unsigned index = 0;
+
+	for (auto* enemy : this->activeEnemies)
 	{
-		i->update(dt, this->mousePosView);
+		enemy->update(dt, this->mousePosView);
+
+		this->tileMap->updateWorldBoundsCollision(enemy, dt);
+		this->tileMap->updateTileCollision(enemy, dt);
+
+		this->updateCombat(enemy, index, dt);
+
+		// Sketchy
+		if (enemy->isDead())
+		{
+			this->player->gainEXP(enemy->getGainExp());
+
+			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			--index;
+		}
 		
-		this->updateCombat(i, dt);
+		++index;
 	}
 }
 
-void GameState::updateCombat(Enemy* enemy, const float& dt)
+void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f)
+		if (this->player->getWeapon()->getAttackTimer()
+			&& enemy->getGlobalBounds().contains(this->mousePosView)
+			&& enemy->getDistance(*this->player) < 30.f)
 		{
 			//Get to this!!!!
-			std::cout << "Hit!" << rand() % 29 << "\n";
+			enemy->loseHP(this->player->getWeapon()->getDamageMin());
+			std::cout << enemy->getAttributeComponent()->hp << "\n";
 		}
 	}
 }
@@ -286,7 +295,7 @@ void GameState::update(const float& dt)
 
 		//Update all enemies
 		//CHANGE: Loop outside, and make functions take one enemy at a time
-		this->updateEnemies(dt);
+		this->updateCombatAndEnemies(dt);
 	}
 	else // Paused update
 	{
@@ -312,9 +321,9 @@ void GameState::render(sf::RenderTarget* target)
 		false
 	);
 
-	for (auto* i : this->activeEnemies)
+	for (auto* enemy : this->activeEnemies)
 	{
-		i->render(this->renderTexture, &this->coreShader, this->player->getCenter(), true);
+		enemy->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
 	}
 
 	this->player->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
@@ -333,6 +342,6 @@ void GameState::render(sf::RenderTarget* target)
 
 	// FINAL RENDER
 	this->renderTexture.display();
-	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	//this->renderSprite.setTexture(this->renderTexture.getTexture());
 	target->draw(this->renderSprite);
 }

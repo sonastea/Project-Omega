@@ -29,13 +29,14 @@ public:
 
     // Accessors / Getters
     AttributeComponent* getAttributeComponent();
+    Weapon* getWeapon() const;
 
     // Functions
     void loseHP(const int hp);
     void gainHP(const int hp);
     void loseEXP(const int exp);
     void gainEXP(const int exp);
-    void updateAttack();
+
     void updateAnimation(const float& dt);
     void update(const float& dt, sf::Vector2f& mouse_pos_view);
 
