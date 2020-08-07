@@ -8,6 +8,9 @@
 #include "PlayerGUI.h"
 #include "Sword.h"
 #include "Bow.h"
+#include "TextTagSystem.h"
+
+class TextTagSystem;
 
 class GameState :
     public State
@@ -29,8 +32,11 @@ private:
 
     TileMap* tileMap;
 
-    EnemySystem* enemySystem;
     std::vector<Enemy*> activeEnemies;
+    EnemySystem* enemySystem;
+
+    // Systems
+    TextTagSystem* text_tag_system_;
 
     // Functions
     void initDeferredRender();
@@ -44,6 +50,7 @@ private:
     void initPlayerGUI();
     void initEnemySystem();
     void initTileMap();
+    void initSystems();
 
 public:
     // Constructors/Destructors

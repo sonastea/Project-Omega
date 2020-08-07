@@ -95,7 +95,7 @@ void GameState::initShaders()
 
 void GameState::initPlayers()
 {
-	this->player = new Player(sf::Vector2f(200, 200), this->textures["PLAYER_SHEET"]);
+	this->player = new Player(sf::Vector2f(220, 220), this->textures["PLAYER_SHEET"]);
 }
 
 void GameState::initPlayerGUI()
@@ -111,6 +111,11 @@ void GameState::initEnemySystem()
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap("text.slmp");
+}
+
+void GameState::initSystems()
+{
+	this->text_tag_system_ = new TextTagSystem("Fonts/EightBitDragon-anqx.ttf");
 }
 
 // Constructors / Destructors
@@ -130,6 +135,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGUI();
 	this->initEnemySystem();
 	this->initTileMap();
+	this->initSystems();
 }
 
 GameState::~GameState()
@@ -139,8 +145,9 @@ GameState::~GameState()
 	delete this->playerGUI;
 	delete this->enemySystem;
 	delete this->tileMap;
+	delete this->text_tag_system_;
 
-	for (size_t i = 0; i < activeEnemies.size(); i++)
+	for (size_t i = 0; i < this->activeEnemies.size(); i++)
 	{
 		delete this->activeEnemies[i];
 	}
@@ -251,6 +258,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), this->player->getPosition(), static_cast<int>(enemy->getGainExp()));
 
 			this->activeEnemies.erase(this->activeEnemies.begin() + index);
 			--index;
@@ -266,11 +274,13 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	{
 		if (this->player->getWeapon()->getAttackTimer()
 			&& enemy->getGlobalBounds().contains(this->mousePosView)
-			&& enemy->getDistance(*this->player) < 30.f)
+			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
 		{
 			//Get to this!!!!
-			enemy->loseHP(this->player->getWeapon()->getDamageMin());
-			std::cout << enemy->getAttributeComponent()->hp << "\n";
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMin());
+			enemy->loseHP(dmg);
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg);
+			std::cout << "Hit" << "\n";
 		}
 	}
 }
@@ -293,9 +303,12 @@ void GameState::update(const float& dt)
 
 		this->playerGUI->update(dt); 
 
-		//Update all enemies
-		//CHANGE: Loop outside, and make functions take one enemy at a time
+		// Update all enemies
+		// CHANGE: Loop outside, and make functions take one enemy at a time
 		this->updateCombatAndEnemies(dt);
+
+		// Update systems
+		this->text_tag_system_->update(dt);
 	}
 	else // Paused update
 	{
@@ -323,12 +336,14 @@ void GameState::render(sf::RenderTarget* target)
 
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
+		enemy->render(this->renderTexture, &this->coreShader, this->player->getCenter(), true);
 	}
 
 	this->player->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->coreShader, this->player->getCenter());
+
+	this->text_tag_system_->render(this->renderTexture);
 
 	// Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());

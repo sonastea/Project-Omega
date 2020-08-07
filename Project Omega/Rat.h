@@ -10,6 +10,10 @@ private:
     // Initializer Functions
     void initVariables();
     void initAnimations();
+    void initGui();
+
+    sf::RectangleShape hpBar_;
+
 public:
     // Constructor / Destructor
     Rat(sf::Vector2f pos, sf::Texture& texture_sheet);

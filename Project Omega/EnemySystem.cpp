@@ -14,7 +14,7 @@ EnemySystem::~EnemySystem()
 }
 
 /* Functions */
-void EnemySystem::createEnemy(short type, const sf::Vector2f pos)
+void EnemySystem::createEnemy(const short type, const sf::Vector2f pos)
 {
 	switch (type)
 	{

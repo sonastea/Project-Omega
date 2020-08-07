@@ -17,11 +17,19 @@ void Rat::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 60, 64);
 }
 
+void Rat::initGui()
+{
+	hpBar_.setFillColor(sf::Color::Red);
+	hpBar_.setSize(sf::Vector2f(60.f, 10.f));
+	hpBar_.setPosition(this->sprite.getPosition());
+}
+
 /* Constructor */
 Rat::Rat(sf::Vector2f pos, sf::Texture& texture_sheet)
 	: Enemy()
 {
 	this->initVariables();
+	this->initGui();
 
 	this->createHitboxComponent(this->sprite, 13.f, 39.f, 30.f, 30.f);
 	this->createMovementComponent(50.f, 1600.f, 1000.f);
@@ -72,6 +80,9 @@ void Rat::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 	this->hitboxComponent->update();
 
+	// Update GUI REMOVE THIS!!!!
+	hpBar_.setSize(sf::Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	hpBar_.setPosition(this->sprite.getPosition());
 }
 
 void Rat::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
@@ -87,6 +98,7 @@ void Rat::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2
 		target.draw(this->sprite);
 	}
 
+	target.draw(this->hpBar_);
 
 	if (show_hitbox)
 		this->hitboxComponent->render(target);

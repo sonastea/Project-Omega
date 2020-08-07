@@ -21,7 +21,7 @@ public:
 	// Modifiers
 
 	/* Functions */
-	void createEnemy(short type, const sf::Vector2f pos);
+	void createEnemy(const short type, const sf::Vector2f pos);
 
 	void update(const float& dt);
 	void render(sf::RenderTarget* target);
