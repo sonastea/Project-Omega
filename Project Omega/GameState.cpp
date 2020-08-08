@@ -277,7 +277,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
 		{
 			//Get to this!!!!
-			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMin());
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
 			enemy->loseHP(dmg);
 			this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg);
 			std::cout << "Hit" << "\n";

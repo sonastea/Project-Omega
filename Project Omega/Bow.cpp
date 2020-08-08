@@ -2,8 +2,8 @@
 #include "Bow.h"
 
 /* Constructor / Destructor */
-Bow::Bow(unsigned value, std::string texture_file)
-    : RangedWeapon(value, texture_file)
+Bow::Bow(unsigned level, unsigned value, std::string texture_file)
+    : RangedWeapon(level, value, texture_file)
 {
 }
 
