@@ -85,13 +85,14 @@ public:
 	virtual ~TextTagSystem();
 
 	/* Functions */
-	void addTextTag(const unsigned tag_type, const sf::Vector2f pos, const std::string str);
+	void addTextTag(const unsigned tag_type, const sf::Vector2f pos, const std::string str, 
+		const std::string prefix = "", const std::string postfix = "");
 
 	template<typename T>
-	void addTextTag(const unsigned tag_type, const sf::Vector2f pos, const T value)
+	void addTextTag(const unsigned tag_type, const sf::Vector2f pos, const T value, const std::string prefix = "", const std::string postfix = "")
 	{
 		std::stringstream ss;
-		ss << value;
+		ss << prefix << " " << value << " " << postfix;
 		this->tags_.push_back(new TextTag(this->tagTemplates_[tag_type], pos, ss.str()));
 	}
 

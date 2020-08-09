@@ -22,7 +22,6 @@ Weapon::Weapon(unsigned level, unsigned value, std::string texture_file)
 	{
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
 	}
-
 	this->weaponSprite.setTexture(this->weaponTexture);
 }
 
@@ -42,7 +41,6 @@ Weapon::Weapon(unsigned level, unsigned damage_min, unsigned damage_max,
 	{
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
 	}
-
 	this->weaponSprite.setTexture(this->weaponTexture);
 }
 

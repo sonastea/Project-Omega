@@ -45,8 +45,11 @@ TextTagSystem::~TextTagSystem()
 }
 
 /* Functions */
-void TextTagSystem::addTextTag(const unsigned tag_type, const sf::Vector2f pos, const std::string str)
+void TextTagSystem::addTextTag(const unsigned tag_type, const sf::Vector2f pos, const std::string str,
+	const std::string prefix, const std::string postfix)
 {
+	std::stringstream ss;
+	ss << prefix << " " << str << " " << postfix;
 	this->tags_.push_back(new TextTag(this->tagTemplates_[tag_type], pos, str));
 }
 

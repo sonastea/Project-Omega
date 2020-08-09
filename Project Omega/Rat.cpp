@@ -36,6 +36,8 @@ Rat::Rat(sf::Vector2f pos, sf::Texture& texture_sheet)
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 
+	this->generateAttributes(this->attributeComponent->level);
+
 	this->setPosition(pos);
 	this->initAnimations();
 }

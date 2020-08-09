@@ -258,7 +258,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), this->player->getPosition(), static_cast<int>(enemy->getGainExp()));
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), this->player->getPosition(), static_cast<int>(enemy->getGainExp()), "", "+EXP");
 
 			this->activeEnemies.erase(this->activeEnemies.begin() + index);
 			--index;
@@ -279,7 +279,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 			//Get to this!!!!
 			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
 			enemy->loseHP(dmg);
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg);
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg, "", "-HP");
 			std::cout << "Hit" << "\n";
 		}
 	}
