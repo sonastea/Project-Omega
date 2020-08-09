@@ -16,7 +16,7 @@ private:
 
 public:
     // Constructor / Destructor
-    Rat(sf::Vector2f pos, sf::Texture& texture_sheet);
+    Rat(sf::Vector2f pos, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
     virtual ~Rat();
 
     // Functions

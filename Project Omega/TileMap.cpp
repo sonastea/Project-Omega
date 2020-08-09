@@ -512,17 +512,20 @@ void TileMap::updateTiles(Entity* entity, const float& dt, EnemySystem& enemySys
 		{
 			for (size_t k = 0; k < this->map[x][y][this->layer].size(); k++)
 			{
+				// Update the tile
 				this->map[x][y][this->layer][k]->update();
 
+				// Update tiles types (specific)
 				if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER)
 				{
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es)
 					{
-						if (!es->getSpawned())
+						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount())
 						{
-							enemySystem.createEnemy(to_int(EnemyTypes::Rat), sf::Vector2f(x * this->gridSizeF, y * this->gridSizeF));
+							enemySystem.createEnemy(to_int(EnemyTypes::Rat), sf::Vector2f(x * this->gridSizeF, y * this->gridSizeF), *es);
 							es->setSpawned(true);
+							std::cout << "Spawned!" << "\n";
 						}
 					}
 				}

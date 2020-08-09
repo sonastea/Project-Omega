@@ -7,7 +7,7 @@ uniform vec2 lightPos;
 void main()
 {
 	//Ambient light
-	vec4 ambient = vec4(0.02, 0.02, 0.5, 1.0); //All 1s = completely day
+	vec4 ambient = vec4(0.5, 0.4, 0.4, 1.0); //All 1s = completely day, (0.02, 0.02, 0.5, 1.0) = Default Night
 	
 	//Convert light to view coords
 	lightPos = (gl_ModelViewProjectionMatrix * vec4(lightPos, 0, 1)).xy;
