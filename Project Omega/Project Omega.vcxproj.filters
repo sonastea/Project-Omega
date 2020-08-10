@@ -49,6 +49,9 @@
     <Filter Include="Systems">
       <UniqueIdentifier>{faf08f68-d12e-4f3d-8cb5-ac87b2b2a7e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\PlayerGUITabs">
+      <UniqueIdentifier>{22e6fcc4-8a4a-406f-bef1-ec99006166e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,6 +164,15 @@
     </ClCompile>
     <ClCompile Include="TextTagSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGUITabs.cpp">
+      <Filter>GUI\PlayerGUITabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Tab.cpp">
+      <Filter>GUI\PlayerGUITabs</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterTab.cpp">
+      <Filter>GUI\PlayerGUITabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="TextTagSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGUITabs.h">
+      <Filter>GUI\PlayerGUITabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Tab.h">
+      <Filter>GUI\PlayerGUITabs</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterTab.h">
+      <Filter>GUI\PlayerGUITabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

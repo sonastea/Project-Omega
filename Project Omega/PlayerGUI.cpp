@@ -2,7 +2,6 @@
 #include "PlayerGUI.h"
 
 /* Initialzer Functions */
-
 void PlayerGUI::initFont()
 {
 	this->font.loadFromFile("Fonts/Gasalt-Regular.ttf");
@@ -47,8 +46,12 @@ void PlayerGUI::initHPBar()
 	);
 }
 
-/* Constructor / Destructor */
+void PlayerGUI::initPlayerTabs(sf::VideoMode& vm, sf::Font& font, Player& player)
+{
+	this->playerTabs_ = new PlayerGUITabs(vm, font, player);
+}
 
+/* Constructor / Destructor */
 PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
 	: vm(vm)
 {
@@ -58,16 +61,28 @@ PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm)
 	this->initLevelBar();
 	this->initEXPBar();
 	this->initHPBar();
+	this->initPlayerTabs(vm, font, *player);
 }
 
 PlayerGUI::~PlayerGUI()
 {
 	delete this->hpBar;
 	delete this->expBar;
+	delete this->playerTabs_;
+}
+
+/* Accessors / Getters */
+const bool PlayerGUI::getTabsOpen() const
+{
+	return this->playerTabs_->tabsOpen();
+}
+
+void PlayerGUI::toggleCharacterTab()
+{
+	this->playerTabs_->toggleTab(to_int(PlayerTabs::Character));
 }
 
 /* Functions */
-
 void PlayerGUI::updateLevelBar()
 {
 	this->levelBarString = std::to_string(this->player->getAttributeComponent()->level);
@@ -84,11 +99,17 @@ void PlayerGUI::updateHPBar()
 	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
+void PlayerGUI::updatePlayerTabs()
+{
+	this->playerTabs_->update();
+}
+
 void PlayerGUI::update(const float& dt)
 {
 	this->updateLevelBar();
 	this->updateEXPBar();
 	this->updateHPBar();
+	this->updatePlayerTabs();
 }
 
 void PlayerGUI::renderLevelBar(sf::RenderTarget& target)
@@ -100,7 +121,6 @@ void PlayerGUI::renderLevelBar(sf::RenderTarget& target)
 void PlayerGUI::renderEXPBar(sf::RenderTarget& target)
 {
 	this->expBar->render(target);
-
 }
 
 void PlayerGUI::renderHPBar(sf::RenderTarget& target)
@@ -108,9 +128,15 @@ void PlayerGUI::renderHPBar(sf::RenderTarget& target)
 	this->hpBar->render(target);
 }
 
+void PlayerGUI::renderPlayerTabs(sf::RenderTarget& target)
+{
+	this->playerTabs_->render(target);
+}
+
 void PlayerGUI::render(sf::RenderTarget& target)
 {
 	this->renderLevelBar(target);
 	this->renderEXPBar(target);
 	this->renderHPBar(target);
+	this->renderPlayerTabs(target);
 }

@@ -71,7 +71,7 @@ void GameState::initTextures()
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
 	}
 
-	if (!this->textures["RAT1_SHEET"].loadFromFile("Assets/Models/Enemy/slime1_64x64.png"))
+	if (!this->textures["RAT1_SHEET"].loadFromFile("Assets/Models/Enemy/slime2-1_64x64.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_RAT1_TEXTURE";
 	}
@@ -91,6 +91,12 @@ void GameState::initShaders()
 	{
 		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
 	}
+}
+
+void GameState::initKeyTime()
+{
+	this->keyTimeMax_ = 0.3f;
+	this->keyTimer_.restart();
 }
 
 void GameState::initPlayers()
@@ -130,6 +136,7 @@ GameState::GameState(StateData* state_data)
 	this->initTextures();
 	this->initPauseMenu();
 	this->initShaders();
+	this->initKeyTime();
 
 	this->initPlayers();
 	this->initPlayerGUI();
@@ -153,13 +160,26 @@ GameState::~GameState()
 	}
 }
 
+
+// Accessors / Getters
+const bool GameState::geKeyTime()
+{
+	if (this->keyTimer_.getElapsedTime().asSeconds() >= this->keyTimeMax_)
+	{
+		this->keyTimer_.restart();
+		return true;
+	}
+	return false;
+}
+
 /* Functions */
 void GameState::updateView(const float& dt)
 {
 	this->view.setCenter(
-		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f), 
+		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
 		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
 	);
+
 	
 	//std::cout << this->tileMap->getMaxSizeF().x << " " << this->view.getSize().x << "\n";
 
@@ -222,6 +242,11 @@ void GameState::updatePlayerInput(const float& dt)
 void GameState::updatePlayerGUI(const float& dt)
 {
 	this->playerGUI->update(dt);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_PLAYER_CHARACTER_TAB"))) && this->getKeytime())
+	{
+		this->playerGUI->toggleCharacterTab();
+	}
 }
 
 void GameState::updatePauseMenuButtons()
@@ -239,6 +264,7 @@ void GameState::updateTileMap(const float& dt)
 
 void GameState::updatePlayer(const float& dt)
 {
+	this->player->update(dt, this->mousePosView);
 }
 
 void GameState::updateCombatAndEnemies(const float& dt)
@@ -299,9 +325,9 @@ void GameState::update(const float& dt)
 
 		this->updateTileMap(dt); // Check for the collision
 
-		this->player->update(dt, this->mousePosView); // Move the player
+		this->updatePlayer(dt);
 
-		this->playerGUI->update(dt); 
+		this->updatePlayerGUI(dt);
 
 		// Update all enemies
 		// CHANGE: Loop outside, and make functions take one enemy at a time
