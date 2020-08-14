@@ -24,8 +24,8 @@ void GameState::initView()
 {
 	this->view.setSize(
 		sf::Vector2f(
-			static_cast<float>(this->stateData->gfxSettings->resolution.width),
-			static_cast<float>(this->stateData->gfxSettings->resolution.height)
+			static_cast<float>(this->stateData->gfxSettings->resolution.width / 2),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)
 		)
 	);
 
@@ -269,7 +269,7 @@ void GameState::updatePlayer(const float& dt)
 
 void GameState::updateCombatAndEnemies(const float& dt)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
 		this->player->setInitAttack(true);
 
 	unsigned index = 0;
@@ -302,17 +302,15 @@ void GameState::updateCombatAndEnemies(const float& dt)
 void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
 	if (enemy->getGlobalBounds().contains(this->mousePosView) 
-		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())	
+		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()
+		&& enemy->getDamageTimerDone())	
 	{
-		if (this->player->getWeapon()->getAttackTimer() && enemy->getDamageTimerDone())
-		{
-			//Get to this!!!!
-			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
-			enemy->loseHP(dmg);
-			enemy->resetDamageTimer();
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg, "", "-HP");
-			std::cout << "Hit" << "\n";
-		}
+		//Get to this!!!!
+		int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
+		enemy->loseHP(dmg);
+		enemy->resetDamageTimer();
+		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg, "", "-HP");
+		std::cout << "Hit" << "\n";
 	}
 }
 

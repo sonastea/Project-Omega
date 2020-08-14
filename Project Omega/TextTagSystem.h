@@ -13,6 +13,9 @@ private:
 		sf::Vector2f dir;
 		float lifetime;
 		float speed;
+		float acceleration;
+		sf::Vector2f velocity;
+		int fadeValue;
 
 
 	public:
@@ -20,7 +23,8 @@ private:
 		TextTag(sf::Font& font, std::string text,
 			sf::Vector2f pos, sf::Vector2f dir,
 			sf::Color color, unsigned char_size,
-			float lifetime, float speed)
+			float lifetime, float speed,
+			float acceleration, int fade_value)
 		{
 			this->text.setFont(font);
 			this->text.setString(text);
@@ -31,6 +35,8 @@ private:
 			this->dir = dir;
 			this->lifetime = lifetime;
 			this->speed = speed;
+			this->acceleration = acceleration;
+			this->fadeValue = fade_value;
 		}
 
 		TextTag(TextTag* tag, sf::Vector2f pos, std::string str)
@@ -42,6 +48,8 @@ private:
 			this->dir = tag->dir;
 			this->lifetime = tag->lifetime;
 			this->speed = tag->speed;
+			this->acceleration = tag->acceleration;
+			this->fadeValue = tag->fadeValue;
 		}
 
 		/* Destructors */
@@ -59,8 +67,37 @@ private:
 				// Update lifetime of the text
 				this->lifetime -= 100.f * dt;
 
-				// Moves the text tag
-				this->text.move(this->dir.x * this->speed * dt, this->dir.y * this->speed * dt);
+				// Accelerates the text tag
+				if (this->acceleration > 0.f)
+				{
+					this->velocity += this->dir * this->acceleration * dt;
+
+					if (abs(this->velocity.x) > this->speed)
+						this->velocity.x = this->dir.x * this->speed;
+
+					if (abs(this->velocity.y) > this->speed)
+						this->velocity.y = this->dir.y * this->speed;
+
+					this->text.move(this->velocity * dt);
+				}
+				else
+				{
+					// Move the text tag
+					this->text.move(this->dir * this->speed * dt);
+				}
+
+				if (this->fadeValue > 0 && this->text.getFillColor().a >= this->fadeValue)
+				{
+					this->text.setFillColor
+					(
+						sf::Color(
+							this->text.getFillColor().r,
+							this->text.getFillColor().g,
+							this->text.getFillColor().b,
+							this->text.getFillColor().a - this->fadeValue
+						)
+					);
+				}
 			}
 		}
 
