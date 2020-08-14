@@ -3,8 +3,8 @@
 
 /* Constructor */
 EnemySystem::EnemySystem(std::vector<Enemy*>& activeEnemies, 
-	std::map<std::string, sf::Texture>& textures):
-	textures(textures), activeEnemies(activeEnemies)
+	std::map<std::string, sf::Texture>& textures, Entity& player):
+	textures(textures), activeEnemies(activeEnemies), player_(player)
 {
 }
 
@@ -19,7 +19,7 @@ void EnemySystem::createEnemy(const short type, const sf::Vector2f pos, EnemySpa
 	switch (type)
 	{
 		case to_int(EnemyTypes::Rat):
-			this->activeEnemies.push_back(new Rat(pos, this->textures["RAT1_SHEET"], enemy_spawner_tile));
+			this->activeEnemies.push_back(new Rat(pos, this->textures["RAT1_SHEET"], enemy_spawner_tile, this->player_));
 			enemy_spawner_tile.increaseEnemyCounter();
 			break;
 		default:

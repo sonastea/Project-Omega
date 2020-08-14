@@ -5,11 +5,11 @@ void TileMap::clear()
 {
 	if (!this->map.empty())
 	{
-		for (int x = 0; x < this->map.size(); x++)
+		for (int x = 0; x < static_cast<int>(this->map.size()); x++)
 		{
-			for (int y = 0; y < this->map[x].size(); y++)
+			for (int y = 0; y < static_cast<int>(this->map[x].size()); y++)
 			{
-				for (int z = 0; z < this->map[x][y].size(); z++)
+				for (int z = 0; z < static_cast<int>(this->map[x][y].size()); z++)
 				{
 					for (size_t k = 0; k < this->map[x][y][z].size(); k++)
 					{
@@ -312,7 +312,7 @@ void TileMap::loadFromFile(const std::string file_name)
 				int enemy_type = 0;
 				int enemy_am = 0;
 				int enemy_tts = 0;
-				int enemy_md = 0;
+				float enemy_md = 0;
 
 				in_file >> trX >> trY >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
 

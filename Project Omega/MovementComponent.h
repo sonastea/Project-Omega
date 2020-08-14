@@ -1,7 +1,7 @@
 #ifndef MOVEMENTCOMPONENT_H
 #define MOVEMENTCOMPONENT_H
 
-enum movement_states {IS_IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
+enum class MovementState : int { IS_IDLE = 0, MOVING = 1, MOVING_LEFT = 2, MOVING_RIGHT = 3, MOVING_UP = 4, MOVING_DOWN = 5 };
 
 class MovementComponent
 {

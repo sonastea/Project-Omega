@@ -33,6 +33,7 @@ public:
 	void createAnimationComponent(sf::Texture& texture_sheet);
 	void createAttributeComponent(const unsigned level);
 	void createSkillComponent();
+	void createAIComponent();
 
 	// Accessors / Getters
 	virtual const sf::Vector2f& getPosition() const;

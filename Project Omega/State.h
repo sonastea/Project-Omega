@@ -11,7 +11,13 @@ class State;
 class StateData
 {
 public:
-	StateData() {};
+	StateData() 
+	{
+		this->window = nullptr;
+		this->gfxSettings = nullptr;
+		this->supportedKeys = nullptr;
+		this->states = nullptr;
+	};
 
 	// Variables
 	float gridSize;

@@ -31,12 +31,6 @@
     <Filter Include="Item">
       <UniqueIdentifier>{e2c4e16c-81e0-42e8-88ee-19c307b04cb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Item\MeleeWeapon">
-      <UniqueIdentifier>{8bc48450-b934-45b6-833d-0a7451187f91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\RangedWeapon">
-      <UniqueIdentifier>{16624d84-82d8-4805-bcc8-e9c05d115b1c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Map\Tile">
       <UniqueIdentifier>{2b3e0d93-2ab1-49ba-ab00-450ab24d03b0}</UniqueIdentifier>
     </Filter>
@@ -51,6 +45,21 @@
     </Filter>
     <Filter Include="GUI\PlayerGUITabs">
       <UniqueIdentifier>{22e6fcc4-8a4a-406f-bef1-ec99006166e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{f10db298-72ac-450d-9316-317a592755d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\Options">
+      <UniqueIdentifier>{686414e1-a849-4a99-8b94-5c8ae1adac71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\Weapons">
+      <UniqueIdentifier>{fa5d8a9e-7b2d-4314-bcb7-71422b40abe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\Weapons\MeleeWeapon">
+      <UniqueIdentifier>{8bc48450-b934-45b6-833d-0a7451187f91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\Weapons\RangedWeapon">
+      <UniqueIdentifier>{16624d84-82d8-4805-bcc8-e9c05d115b1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,20 +123,17 @@
     <ClCompile Include="PlayerGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
     <ClCompile Include="MeleeWeapon.cpp">
-      <Filter>Item\MeleeWeapon</Filter>
+      <Filter>Item\Weapons\MeleeWeapon</Filter>
     </ClCompile>
     <ClCompile Include="Sword.cpp">
-      <Filter>Item\MeleeWeapon</Filter>
+      <Filter>Item\Weapons\MeleeWeapon</Filter>
     </ClCompile>
     <ClCompile Include="RangedWeapon.cpp">
-      <Filter>Item\RangedWeapon</Filter>
+      <Filter>Item\Weapons\RangedWeapon</Filter>
     </ClCompile>
     <ClCompile Include="Bow.cpp">
-      <Filter>Item\RangedWeapon</Filter>
+      <Filter>Item\Weapons\RangedWeapon</Filter>
     </ClCompile>
     <ClCompile Include="SkillComponent.cpp">
       <Filter>Components</Filter>
@@ -156,12 +162,6 @@
     <ClCompile Include="EnemySystem.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
     <ClCompile Include="TextTagSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
@@ -173,6 +173,24 @@
     </ClCompile>
     <ClCompile Include="CharacterTab.cpp">
       <Filter>GUI\PlayerGUITabs</Filter>
+    </ClCompile>
+    <ClCompile Include="AIOption.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIFollow.cpp">
+      <Filter>AI\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="AIComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Item\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,20 +251,17 @@
     <ClInclude Include="PlayerGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Item</Filter>
-    </ClInclude>
     <ClInclude Include="MeleeWeapon.h">
-      <Filter>Item\MeleeWeapon</Filter>
+      <Filter>Item\Weapons\MeleeWeapon</Filter>
     </ClInclude>
     <ClInclude Include="Sword.h">
-      <Filter>Item\MeleeWeapon</Filter>
+      <Filter>Item\Weapons\MeleeWeapon</Filter>
     </ClInclude>
     <ClInclude Include="RangedWeapon.h">
-      <Filter>Item\RangedWeapon</Filter>
+      <Filter>Item\Weapons\RangedWeapon</Filter>
     </ClInclude>
     <ClInclude Include="Bow.h">
-      <Filter>Item\RangedWeapon</Filter>
+      <Filter>Item\Weapons\RangedWeapon</Filter>
     </ClInclude>
     <ClInclude Include="SkillComponent.h">
       <Filter>Components</Filter>
@@ -275,15 +290,6 @@
     <ClInclude Include="EnemySystem.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Items.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Item</Filter>
-    </ClInclude>
     <ClInclude Include="EditorModes.h">
       <Filter>States</Filter>
     </ClInclude>
@@ -298,6 +304,27 @@
     </ClInclude>
     <ClInclude Include="CharacterTab.h">
       <Filter>GUI\PlayerGUITabs</Filter>
+    </ClInclude>
+    <ClInclude Include="AIOption.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIFollow.h">
+      <Filter>AI\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Item\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

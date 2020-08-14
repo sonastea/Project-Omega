@@ -4,6 +4,7 @@
 /* Initializer functions */
 void Player::initVariables()
 {
+	this->initAttack = false;
 	this->isAttacking = false;
 	this->sword = new Sword(1, 2, 5, 60, 20, "Assets/Models/Weapon/stellar-sword.png");
 	this->sword->generate(1, 3);
@@ -75,6 +76,16 @@ const std::string Player::toStringCharacterTab() const
 	return ss.str();
 }
 
+const bool& Player::getInitAttack() const
+{
+	return this->initAttack;
+}
+
+void Player::setInitAttack(const bool initAttack)
+{
+	this->initAttack = initAttack;
+}
+
 void Player::loseHP(const int hp)
 {
 	this->attributeComponent->loseHP(hp);
@@ -102,23 +113,23 @@ void Player::updateAnimation(const float& dt)
 	{
 
 	}
-	if (this->movementComponent->getState(IS_IDLE))
+	if (this->movementComponent->getState(to_int(MovementState::IS_IDLE)))
 	{
 		this->animationComponent->play("IDLE", dt);
 	}
-	else if (this->movementComponent->getState(MOVING_LEFT))
+	else if (this->movementComponent->getState(to_int(MovementState::MOVING_LEFT)))
 	{
 		this->animationComponent->play("WALK_LEFT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
 	}
-	else if (this->movementComponent->getState(MOVING_RIGHT))
+	else if (this->movementComponent->getState(to_int(MovementState::MOVING_RIGHT)))
 	{
 		this->animationComponent->play("WALK_RIGHT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
 	}
-	else if (this->movementComponent->getState(MOVING_UP))
+	else if (this->movementComponent->getState(to_int(MovementState::MOVING_UP)))
 	{
 		this->animationComponent->play("WALK_UP", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
-	else if (this->movementComponent->getState(MOVING_DOWN))
+	else if (this->movementComponent->getState(to_int(MovementState::MOVING_DOWN)))
 	{
 		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}

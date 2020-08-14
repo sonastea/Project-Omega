@@ -38,7 +38,10 @@ void Sword::update(const sf::Vector2f mouse_pos_view, const sf::Vector2f center)
 
 	if (this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax)
 	{
-		this->weaponSprite.rotate(30.f);
+		float len = std::sqrt(pow(dX, 2) + pow(dY, 2));
+		sf::Vector2f normVec(dX / len, dY / len); // Normalized vector
+		 
+		this->weaponSprite.setPosition(center.x + normVec.x * 10.f, center.y + normVec.y * 10.f);
 	}
 	else
 		this->weaponSprite.setRotation(deg + 90.f);

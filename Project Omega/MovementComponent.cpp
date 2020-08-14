@@ -30,32 +30,32 @@ const bool MovementComponent::getState(const short unsigned state) const
 {
 	switch (state)
 	{
-	case IS_IDLE:
+	case to_int(MovementState::IS_IDLE):
 		if (this->velocity.x == 0.f && this->velocity.y == 0.f)
 			return true;
 		break;
 
-	case MOVING:
+	case to_int(MovementState::MOVING):
 		if (this->velocity.x != 0.f || this->velocity.y != 0.f)
 			return true;
 		break;
 
-	case MOVING_LEFT:
+	case to_int(MovementState::MOVING_LEFT):
 		if (this->velocity.x < 0.f)
 			return true;
 		break;
 
-	case MOVING_RIGHT:
+	case to_int(MovementState::MOVING_RIGHT):
 		if (this->velocity.x > 0.f)
 			return true;
 		break;
 
-	case MOVING_UP:
+	case to_int(MovementState::MOVING_UP):
 		if (this->velocity.y < 0.f)
 			return true;
 		break;
 
-	case MOVING_DOWN:
+	case to_int(MovementState::MOVING_DOWN):
 		if (this->velocity.y > 0.f)
 			return true;
 		break;

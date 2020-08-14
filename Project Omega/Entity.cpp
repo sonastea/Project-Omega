@@ -57,6 +57,10 @@ void Entity::createSkillComponent()
 	this->skillComponent = new SkillComponent();
 }
 
+void Entity::createAIComponent()
+{
+}
+
 // Accessors / Getters
 
 const sf::Vector2f& Entity::getPosition() const

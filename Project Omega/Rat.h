@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 
+#include "AIFollow.h"
+
 class Rat :
     public Enemy
 {
@@ -10,13 +12,16 @@ private:
     // Initializer Functions
     void initVariables();
     void initAnimations();
+    void initAI();
     void initGui();
 
     sf::RectangleShape hpBar_;
 
+    AIFollow* follow_;
+
 public:
     // Constructor / Destructor
-    Rat(sf::Vector2f pos, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
+    Rat(sf::Vector2f pos, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player);
     virtual ~Rat();
 
     // Functions

@@ -48,7 +48,7 @@ const bool PlayerGUITabs::tabsOpen()
 
 void PlayerGUITabs::toggleTab(const int tab_index)
 {
-	if (tab_index >= 0 || tab_index < this->tabs_.size())
+	if (tab_index >= 0 || tab_index < static_cast<int>(this->tabs_.size()))
 		this->tabs_[tab_index]->toggle();
 }
 

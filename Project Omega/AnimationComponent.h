@@ -60,7 +60,7 @@ private:
 				else // resets animation
 				{
 					this->currentRect.left = this->startRect.left;
-					done = true;
+					this->done = true;
 				}
 
 				this->sprite.setTextureRect(this->currentRect);
@@ -92,7 +92,7 @@ private:
 				else // resets animation
 				{
 					this->currentRect.left = this->startRect.left;
-					done = true;
+					this->done = true;
 				}
 
 				this->sprite.setTextureRect(this->currentRect);
