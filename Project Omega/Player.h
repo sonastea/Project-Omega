@@ -16,7 +16,10 @@ private:
 
     bool initAttack;
     bool isAttacking;
-    Sword* sword;
+    Sword* weapon;
+
+    sf::Clock damageTimer;
+    sf::Int32 damageTimerMax;
 
     // Initializer functions
     void initVariables();
@@ -34,6 +37,10 @@ public:
 
     const std::string toStringCharacterTab() const;
     const bool& getInitAttack() const;
+
+    const bool getDamageTimer();
+
+    const unsigned getDamage() const;
 
     // Modifiers
     void setInitAttack(const bool initAttack);

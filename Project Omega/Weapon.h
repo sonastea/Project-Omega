@@ -34,7 +34,7 @@ public:
 
     // Getters / Accessors
     const unsigned& getDamageMin() const;
-    const unsigned& getDamagemax() const;
+    const unsigned& getDamageMax() const;
     const unsigned getDamage() const;
     const unsigned& getRange() const;
     const bool getAttackTimer();

@@ -54,7 +54,7 @@ const unsigned& Weapon::getDamageMin() const
 	return this->damageMin;
 }
 
-const unsigned& Weapon::getDamagemax() const
+const unsigned& Weapon::getDamageMax() const
 {
 	return this->damageMax;
 }

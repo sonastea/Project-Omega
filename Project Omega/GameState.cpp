@@ -281,14 +281,13 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
 
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			this->updateCombat(enemy, index, dt);
+		this->updateCombat(enemy, index, dt);
 
 		// Sketchy
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), this->player->getPosition(), static_cast<int>(enemy->getGainExp()), "", "+EXP");
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), sf::Vector2f(this->player->getPosition().x - 50.f, this->player->getPosition().y), static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			
 			this->enemySystem->removeEnemy(index);
 			--index;
@@ -301,16 +300,26 @@ void GameState::updateCombatAndEnemies(const float& dt)
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
-	if (enemy->getGlobalBounds().contains(this->mousePosView) 
+	if (this->player->getInitAttack()
+		&& enemy->getGlobalBounds().contains(this->mousePosView) 
 		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()
 		&& enemy->getDamageTimerDone())	
 	{
 		//Get to this!!!!
-		int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
+		int dmg = static_cast<int>(this->player->getDamage());
 		enemy->loseHP(dmg);
 		enemy->resetDamageTimer();
-		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), this->player->getPosition(), dmg, "", "-HP");
+		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), enemy->getPosition(), dmg, "", "");
 		std::cout << "Hit" << "\n";
+	}
+
+	// Check for enemy damage
+	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
+	{
+		int dmg = enemy->getAttributeComponent()->damageMax;
+		this->player->loseHP(dmg);
+		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), sf::Vector2f(enemy->getPosition().x - 50.f, enemy->getPosition().y), dmg, "", "");
+		std::cout << "Enemy Hit" << "\n";
 	}
 }
 
