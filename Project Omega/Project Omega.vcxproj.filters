@@ -192,6 +192,9 @@
     <ClCompile Include="Item.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="VectorMath.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -326,6 +329,12 @@
     <ClInclude Include="Item.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorMath.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_shader.frag">
@@ -334,5 +343,10 @@
     <None Include="vertex_shader.vert">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project Omega1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -16,9 +16,9 @@ void TextTagSystem::initFonts(std::string font_file)
 
 void TextTagSystem::initTagTemplates()
 {
-	this->tagTemplates_[to_int(TagTypes::Default)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, -1.f), sf::Color::White, 15, 100.f, 100.f, 300.f, 2);
-	this->tagTemplates_[to_int(TagTypes::Negative)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, 1.f), sf::Color::Red, 15, 100.f, 150.f, 100.f, 1);
-	this->tagTemplates_[to_int(TagTypes::Experience)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, -1.f), sf::Color::Green, 18, 200.f, 200.f, 400.f, 2);
+	this->tagTemplates_[to_int(TagTypes::Default)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, -1.f), sf::Color::White, 15, 100.f, true, 200.f, 200.f, 2);
+	this->tagTemplates_[to_int(TagTypes::Negative)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, 1.f), sf::Color::Red, 15, 100.f, true, 200.f, 200.f, 1);
+	this->tagTemplates_[to_int(TagTypes::Experience)] = new TextTag(font_, "", sf::Vector2f(100.f, 100.f), sf::Vector2f(0.f, -1.f), sf::Color::Green, 18, 200.f, true, 200.f, 200.f, 2);
 }
 
 /* Constructor  / Destructors */
@@ -74,4 +74,3 @@ void TextTagSystem::render(sf::RenderTarget& target)
 		tag->render(target);
 	}
 }
-

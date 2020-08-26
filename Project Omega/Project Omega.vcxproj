@@ -184,6 +184,7 @@
     <ClCompile Include="RegularTile.cpp" />
     <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="SkillComponent.cpp" />
+    <ClCompile Include="VectorMath.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -217,6 +218,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="EditorModes.h" />
+    <ClInclude Include="VectorMath.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
@@ -226,6 +228,7 @@
     <ClInclude Include="RangedWeapon.h" />
     <ClInclude Include="Rat.h" />
     <ClInclude Include="RegularTile.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="HitboxComponent.h" />
@@ -245,6 +248,9 @@
   <ItemGroup>
     <None Include="fragment_shader.frag" />
     <None Include="vertex_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project Omega1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

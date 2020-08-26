@@ -287,7 +287,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), sf::Vector2f(this->player->getPosition().x - 50.f, this->player->getPosition().y), static_cast<int>(enemy->getGainExp()), "+", "EXP");
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), sf::Vector2f(this->player->getPosition().x - 30.f, this->player->getPosition().y), static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			
 			this->enemySystem->removeEnemy(index);
 			--index;
@@ -309,7 +309,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 		int dmg = static_cast<int>(this->player->getDamage());
 		enemy->loseHP(dmg);
 		enemy->resetDamageTimer();
-		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), enemy->getPosition(), dmg, "", "");
+		this->text_tag_system_->addTextTag(to_int(TagTypes::Default), enemy->getPosition(), dmg, "", "");
 		std::cout << "Hit" << "\n";
 	}
 
@@ -318,7 +318,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	{
 		int dmg = enemy->getAttributeComponent()->damageMax;
 		this->player->loseHP(dmg);
-		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), sf::Vector2f(enemy->getPosition().x - 50.f, enemy->getPosition().y), dmg, "", "");
+		this->text_tag_system_->addTextTag(to_int(TagTypes::Negative), sf::Vector2f(player->getPosition().x - 30.f, player->getPosition().y), dmg, "-", "HP");
 		std::cout << "Enemy Hit" << "\n";
 	}
 }

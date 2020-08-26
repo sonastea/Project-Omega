@@ -1,7 +1,7 @@
 #ifndef TEXTTAGSYSTEM_H
 #define TEXTTAGSYSTEM_H
 
-enum class TagTypes : int { Default = 0, Negative = 1, Positive = 2, Experience = 3, Environmental = 4};
+enum class TagTypes : int { Default = 0, Negative = 1, Positive = 2, Experience = 3, Environmental = 4 };
 
 class TextTagSystem
 {
@@ -16,6 +16,7 @@ private:
 		float acceleration;
 		sf::Vector2f velocity;
 		int fadeValue;
+		bool reverse;
 
 
 	public:
@@ -23,7 +24,7 @@ private:
 		TextTag(sf::Font& font, std::string text,
 			sf::Vector2f pos, sf::Vector2f dir,
 			sf::Color color, unsigned char_size,
-			float lifetime, float speed,
+			float lifetime, bool reverse, float speed,
 			float acceleration, int fade_value)
 		{
 			this->text.setFont(font);
@@ -37,6 +38,13 @@ private:
 			this->speed = speed;
 			this->acceleration = acceleration;
 			this->fadeValue = fade_value;
+			this->reverse = reverse;
+
+			if (this->reverse)
+			{
+				this->velocity.x = this->dir.x * this->speed;
+				this->velocity.y = this->dir.y * this->speed;
+			}
 		}
 
 		TextTag(TextTag* tag, sf::Vector2f pos, std::string str)
@@ -50,6 +58,8 @@ private:
 			this->speed = tag->speed;
 			this->acceleration = tag->acceleration;
 			this->fadeValue = tag->fadeValue;
+			this->reverse = tag->reverse;
+			this->velocity = tag->velocity;
 		}
 
 		/* Destructors */
@@ -70,15 +80,29 @@ private:
 				// Accelerates the text tag
 				if (this->acceleration > 0.f)
 				{
-					this->velocity += this->dir * this->acceleration * dt;
+					if (this->reverse)
+					{
+						this->velocity -= this->dir * this->acceleration * dt;
 
-					if (abs(this->velocity.x) > this->speed)
-						this->velocity.x = this->dir.x * this->speed;
+						if (abs(this->velocity.x) < 0.f)
+							this->velocity.x = 0.f;
+						if (abs(this->velocity.y) < 0.f)
+							this->velocity.y = 0.f;
 
-					if (abs(this->velocity.y) > this->speed)
-						this->velocity.y = this->dir.y * this->speed;
+						this->text.move(this->velocity * dt);
+					}
+					else
+					{
+						this->velocity += this->dir * this->acceleration * dt;
 
-					this->text.move(this->velocity * dt);
+						if (abs(this->velocity.x) > this->speed)
+							this->velocity.x = this->dir.x * this->speed;
+
+						if (abs(this->velocity.y) > this->speed)
+							this->velocity.y = this->dir.y * this->speed;
+
+						this->text.move(this->velocity * dt);
+					}
 				}
 				else
 				{
