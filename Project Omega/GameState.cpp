@@ -99,6 +99,14 @@ void GameState::initKeyTime()
 	this->keyTimer_.restart();
 }
 
+void GameState::initDebugText()
+{
+	this->debugText_.setFont(this->font);
+	this->debugText_.setFillColor(sf::Color::White);
+	this->debugText_.setCharacterSize(16);
+	this->debugText_.setPosition(15.f, this->window->getSize().y / 2.f);
+}
+
 void GameState::initPlayers()
 {
 	this->player = new Player(sf::Vector2f(220, 220), this->textures["PLAYER_SHEET"]);
@@ -125,7 +133,6 @@ void GameState::initSystems()
 }
 
 // Constructors / Destructors
-
 GameState::GameState(StateData* state_data)
 	: State(state_data)
 {
@@ -160,9 +167,8 @@ GameState::~GameState()
 	}
 }
 
-
 // Accessors / Getters
-const bool GameState::geKeyTime()
+const bool GameState::getKeyTime()
 {
 	if (this->keyTimer_.getElapsedTime().asSeconds() >= this->keyTimeMax_)
 	{
@@ -264,7 +270,7 @@ void GameState::updateTileMap(const float& dt)
 
 void GameState::updatePlayer(const float& dt)
 {
-	this->player->update(dt, this->mousePosView);
+	this->player->update(dt, this->mousePosView, this->view);
 }
 
 void GameState::updateCombatAndEnemies(const float& dt)
@@ -276,23 +282,27 @@ void GameState::updateCombatAndEnemies(const float& dt)
 
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->update(dt, this->mousePosView);
+		enemy->update(dt, this->mousePosView, this->view);
 
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
 
-		this->updateCombat(enemy, index, dt);
+	this->updateCombat(enemy, index, dt);
 
 		// Sketchy
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), sf::Vector2f(this->player->getPosition().x - 30.f, this->player->getPosition().y), static_cast<int>(enemy->getGainExp()), "+", "EXP");
+			this->text_tag_system_->addTextTag(to_int(TagTypes::Experience), sf::Vector2f(this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f), static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			
 			this->enemySystem->removeEnemy(index);
-			--index;
+			continue;
 		}
-		
+		else if (enemy->getDespawnTimerDone())
+		{
+			this->enemySystem->removeEnemy(index);
+			continue;
+		}
 		++index;
 	}
 	this->player->setInitAttack(false);
@@ -302,7 +312,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
 	if (this->player->getInitAttack()
 		&& enemy->getGlobalBounds().contains(this->mousePosView) 
-		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()
+		&& enemy->getSpriteDistance(*this->player) < this->player->getWeapon()->getRange()
 		&& enemy->getDamageTimerDone())	
 	{
 		//Get to this!!!!
@@ -323,11 +333,23 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	}
 }
 
+void GameState::updateDebugText(const float& dt)
+{
+	std::stringstream ss;
+
+	ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
+		<< "Active Enemies: " << this->activeEnemies.size() << "\n";
+
+	this->debugText_.setString(ss.str());
+}
+
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions(&this->view);
 	this->updateKeytime(dt);
 	this->updateInput(dt);
+
+	this->updateDebugText(dt);
 
 	if (!this->paused) // Unpaused update
 	{
@@ -375,10 +397,10 @@ void GameState::render(sf::RenderTarget* target)
 	// Enemy rendering
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
+		enemy->render(this->renderTexture, &this->coreShader, this->player->getCenter(), true);
 	}
 
-	this->player->render(this->renderTexture, &this->coreShader, this->player->getCenter(), false);
+	this->player->render(this->renderTexture, &this->coreShader, this->player->getCenter(), true);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->coreShader, this->player->getCenter());
 
@@ -393,6 +415,9 @@ void GameState::render(sf::RenderTarget* target)
 		//this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pmenu->render(this->renderTexture);
 	}
+
+	// Debug Text
+	this->renderTexture.draw(debugText_);
 
 	// FINAL RENDER
 	this->renderTexture.display();

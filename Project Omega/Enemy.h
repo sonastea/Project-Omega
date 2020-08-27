@@ -13,6 +13,8 @@ protected:
     unsigned gainExp;
     sf::Clock damageTimer_;
     sf::Int32 damageTimerMax_;
+    sf::Clock despawnTimer_;
+    sf::Int32 despawnTimerMax_;
 
     // Initializer Functions
     virtual void initVariables() = 0;
@@ -26,10 +28,11 @@ public:
     // Accessors / Getters
     const unsigned& getGainExp() const;
     EnemySpawnerTile& getEnemySpawnerTile();
+    const bool getDamageTimerDone() const;
+    const bool getDespawnTimerDone() const;
 
     // Modifiers / Setters
     void resetDamageTimer();
-    const bool getDamageTimerDone() const;
 
 
     // Functions
@@ -42,7 +45,7 @@ public:
 
     virtual void updateAnimation(const float& dt) = 0;
     
-    virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
+    virtual void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view) = 0;
     virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 };
 

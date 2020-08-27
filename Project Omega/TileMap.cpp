@@ -89,7 +89,6 @@ TileMap::~TileMap()
 }
 
 /* Accessors / Getters */
-
 const bool TileMap::isEmpty(const int x, const int y, const int z) const
 {
 	if (x >= 0 && x < this->maxSizeWorldGrid.x &&
@@ -133,7 +132,6 @@ const sf::Vector2f& TileMap::getMaxSizeF() const
 }
 
 /* Functions */
-
 void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool& collision, const short& type)
 {
 	/* Take three indicies from the mouse position in the grid and add a tile to that position if the internal tilemap array allows it */
@@ -521,10 +519,9 @@ void TileMap::updateTiles(Entity* entity, const float& dt, EnemySystem& enemySys
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es)
 					{
-						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount())
+						if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount())
 						{
 							enemySystem.createEnemy(to_int(EnemyTypes::Rat), sf::Vector2f(x * this->gridSizeF, y * this->gridSizeF), *es);
-							es->setSpawned(true);
 							std::cout << "Spawned!" << "\n";
 						}
 					}

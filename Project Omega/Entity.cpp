@@ -62,12 +62,36 @@ void Entity::createAIComponent()
 }
 
 // Accessors / Getters
+MovementComponent* Entity::getMovementComponent()
+{
+	return this->movementComponent;
+}
+
+AnimationComponent* Entity::getAnimationComponent()
+{
+	return this->animationComponent;
+}
+
+AttributeComponent* Entity::getAttributeComponent()
+{
+	return this->attributeComponent;
+}
+
+SkillComponent* Entity::getSkillComponent()
+{
+	return this->skillComponent;
+}
 
 const sf::Vector2f& Entity::getPosition() const
 {
 	if (this->hitboxComponent)
 		return this->hitboxComponent->getPosition();
 
+	return this->sprite.getPosition();
+}
+
+const sf::Vector2f& Entity::getSpritePosition() const
+{
 	return this->sprite.getPosition();
 }
 
@@ -91,6 +115,16 @@ const sf::Vector2f Entity::getCenter() const
 			this->sprite.getGlobalBounds().width / 2.f,
 			this->sprite.getGlobalBounds().height / 2.f
 		);
+}
+
+const sf::Vector2f Entity::getSpriteCenter() const
+{
+	return this->sprite.getPosition() +
+		sf::Vector2f
+		(
+			this->sprite.getGlobalBounds().width / 2.f,
+			this->sprite.getGlobalBounds().height / 2.f
+		);;
 }
 
 const sf::Vector2i Entity::getGridPosition(const int gridSizeI) const
@@ -135,7 +169,6 @@ void Entity::setPosition(const sf::Vector2f pos)
 }
 
 /* Functions */
-
 void Entity::move(const sf::Vector2f& direction, const float& dt)
 {
 	if (this->movementComponent)
@@ -168,7 +201,13 @@ void Entity::stopVelocityY()
 		this->movementComponent->stopVelocityY();
 }
 
+/* Calculations */
 const float Entity::getDistance(const Entity& entity) const
 {
 	return sqrt(pow(this->getCenter().x - entity.getCenter().x, 2) + pow(this->getCenter().y - entity.getCenter().y, 2));
+}
+
+const float Entity::getSpriteDistance(const Entity& entity) const
+{
+	return sqrt(pow(this->getSpriteCenter().x - entity.getSpriteCenter().x, 2) + pow(this->getSpriteCenter().y - entity.getSpriteCenter().y, 2));
 }

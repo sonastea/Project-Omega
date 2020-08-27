@@ -7,6 +7,7 @@ void Enemy::initVariables()
 {
 	this->gainExp = 10;
 	this->damageTimerMax_ = 1000;
+	this->despawnTimerMax_ = 1000;
 }
 
 void Enemy::initAnimations()
@@ -26,6 +27,7 @@ Enemy::~Enemy()
 {
 }
 
+/* Accessors / Getters */
 const unsigned& Enemy::getGainExp() const
 {
 	return this->gainExp;
@@ -36,17 +38,23 @@ EnemySpawnerTile& Enemy::getEnemySpawnerTile()
 	return this->enemySpawnerTile_;
 }
 
+const bool Enemy::getDamageTimerDone() const
+{
+	return this->damageTimer_.getElapsedTime().asMilliseconds() >= this->damageTimerMax_;
+}
+
+const bool Enemy::getDespawnTimerDone() const
+{
+	return this->despawnTimer_.getElapsedTime().asMilliseconds() >= this->despawnTimerMax_;
+}
+
 /* Modifiers / Setters */
 void Enemy::resetDamageTimer()
 {
 	this->damageTimer_.restart();
 }
 
-const bool Enemy::getDamageTimerDone() const
-{
-	return this->damageTimer_.getElapsedTime().asMilliseconds() >= this->damageTimerMax_;
-}
-
+/* Functions */
 void Enemy::generateAttributes(const unsigned level)
 {
 	this->gainExp = level * (rand() % 5 + 1);
@@ -81,4 +89,10 @@ const AttributeComponent* Enemy::getAttributeComponent() const
 		std::cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INITIALISZED" << "\n";
 		return nullptr;
 	}
+}
+
+void Enemy::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
+{
+	if (vectorDistance(this->getPosition(), view.getCenter()) < 1500.f)
+		this->despawnTimer_.restart();
 }

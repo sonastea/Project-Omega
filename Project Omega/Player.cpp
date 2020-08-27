@@ -32,12 +32,11 @@ void Player::initInventory()
 }
 
 /* Constructors / Destructors */
-
 Player::Player(sf::Vector2f pos, sf::Texture& texture_sheet)
 {
 	this->initVariables();
 
-	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
+	this->createHitboxComponent(this->sprite, 16.f, 26.f, 32.f, 38.f);
 	this->createMovementComponent(140.f, 1400.f, 1000.f);
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
@@ -162,7 +161,7 @@ void Player::updateAnimation(const float& dt)
 	}
 }
 
-void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
+void Player::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
 {
 	this->movementComponent->update(dt);
 
@@ -170,7 +169,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 	this->hitboxComponent->update();
 
-	this->weapon->update(mouse_pos_view, this->getCenter());
+	this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
@@ -183,7 +182,6 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vect
 		target.draw(this->sprite, shader);
 
 		// Weapon
-
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", light_position);
 		this->weapon->render(target, shader);
