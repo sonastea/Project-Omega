@@ -1,2 +1,3 @@
-# Project-Omega
-Project Omega - Fantasy, SciFi Open World RPG with a bunch of other time wasting shenanigans
+# Porting Project Omega to SDL2
+### Todo :pencil:
+- [ ]  **Everything**
